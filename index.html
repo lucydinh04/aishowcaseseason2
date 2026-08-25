@@ -2412,6 +2412,349 @@ html{
   .solution-field textarea{min-height:104px}
 }
 
+
+/* ===== V19 · Registration Success Screen ===== */
+.register-panel.success-mode{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:610px;
+}
+.register-panel.success-mode > .form-progress,
+.register-panel.success-mode > .form-hint,
+.register-panel.success-mode > #regForm{
+  display:none!important;
+}
+
+.registration-success{
+  position:relative;
+  width:100%;
+  max-width:620px;
+  margin:auto;
+  padding:24px 8px 8px;
+  text-align:center;
+  overflow:hidden;
+}
+.registration-success[hidden]{
+  display:none!important;
+}
+.registration-success.is-visible{
+  display:block;
+}
+
+.success-orbit{
+  position:absolute;
+  width:340px;
+  height:340px;
+  left:50%;
+  top:-205px;
+  transform:translateX(-50%);
+  border:1px solid rgba(255,127,50,.18);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 38px rgba(55,163,255,.025),
+    0 0 80px rgba(255,127,50,.08);
+  pointer-events:none;
+}
+
+.success-icon{
+  position:relative;
+  width:72px;
+  height:72px;
+  margin:0 auto 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  border:1px solid rgba(255,127,50,.55);
+  background:
+    radial-gradient(circle at 38% 28%,rgba(255,255,255,.22),transparent 28%),
+    linear-gradient(145deg,#ff9d63,#ff7f32);
+  box-shadow:
+    0 12px 40px rgba(255,127,50,.24),
+    inset 0 0 16px rgba(255,255,255,.14);
+}
+.success-icon span{
+  color:#07131f;
+  font-size:34px;
+  line-height:1;
+  font-weight:1000;
+}
+
+.success-kicker{
+  color:var(--orange);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.registration-success h3{
+  margin:0;
+  color:#fff;
+  font-size:clamp(30px,3vw,44px);
+  line-height:1.08;
+  letter-spacing:-.035em;
+}
+.success-lead{
+  max-width:520px;
+  margin:14px auto 24px;
+  color:#bdccda;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.success-summary{
+  text-align:left;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  background:rgba(5,15,26,.58);
+  overflow:hidden;
+}
+.success-row{
+  display:grid;
+  grid-template-columns:180px minmax(0,1fr);
+  gap:18px;
+  align-items:start;
+  padding:14px 18px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.success-row:last-child{
+  border-bottom:0;
+}
+.success-row span{
+  color:#8295a8;
+  font-size:12px;
+  line-height:1.5;
+}
+.success-row strong{
+  color:#edf5fb;
+  font-size:13px;
+  line-height:1.55;
+  overflow-wrap:anywhere;
+}
+
+.success-note{
+  margin:18px auto 20px;
+  color:#91a5b7;
+  font-size:12.5px;
+  line-height:1.65;
+}
+.success-home{
+  min-width:160px;
+}
+
+@media(max-width:640px){
+  .register-panel.success-mode{min-height:560px}
+  .registration-success{padding-top:12px}
+  .success-row{
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+}
+
+
+
+/* ===== V20 · Mobile UI Optimization ===== */
+:root{--app-vh:1vh}
+
+@media (max-width: 768px){
+  html{scroll-snap-type:y proximity}
+  body{overflow-x:hidden}
+  .topbar{
+    min-height:auto;
+    padding:10px 14px 12px!important;
+    display:grid;
+    grid-template-columns:auto auto;
+    align-items:center;
+    gap:10px 12px;
+    backdrop-filter:blur(12px);
+  }
+  .brand{display:flex;align-items:center}
+  .brand-logo{height:28px;width:auto;max-width:170px;object-fit:contain}
+  .register-mini{
+    justify-self:end;
+    min-height:40px;
+    padding:0 14px;
+    font-size:12px;
+    white-space:nowrap;
+  }
+  .topnav{
+    display:flex!important;
+    grid-column:1 / -1;
+    width:100%;
+    gap:10px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    padding:2px 0 4px;
+    scrollbar-width:none;
+    white-space:nowrap;
+  }
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{
+    flex:0 0 auto;
+    padding:8px 12px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);
+    font-size:12px;
+  }
+  .progress{right:10px}
+
+  .story > .scene,
+  .hero{
+    min-height:calc(var(--app-vh) * 100);
+    padding-top:92px;
+    padding-bottom:34px;
+  }
+  .scene{padding-left:16px!important;padding-right:16px!important}
+  .scene-inner,
+  .hero .scene-inner,
+  .season1-layout,
+  .register-shell{max-width:100%!important}
+
+  .hero .scene-inner,
+  .context-scene .scene-inner,
+  .register-shell{gap:18px}
+  .hero-copy{
+    max-width:100%!important;
+    font-size:15px!important;
+    line-height:1.65!important;
+  }
+  .hero h1,
+  .context-main h2,
+  .season1-head h2,
+  #criteria h2,
+  #prize h2,
+  #judges h2{
+    font-size:clamp(36px,12vw,56px)!important;
+    line-height:.96!important;
+    letter-spacing:-.05em;
+    max-width:100%!important;
+  }
+  .eyebrow{font-size:10px!important;padding:9px 14px!important}
+
+  .context-editorial,
+  .context-main,
+  #criteria .chapter.right,
+  #prize .chapter,
+  #judges .chapter.right{
+    width:100%!important;
+    max-width:100%!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+  .context-main:before,
+  #criteria .chapter.right:before,
+  #prize .chapter:before,
+  #judges .chapter.right:before{
+    left:-16px!important;
+    right:-16px!important;
+    width:auto!important;
+    height:calc(100% + 28px)!important;
+    top:-14px!important;
+    border-radius:24px!important;
+  }
+
+  .triad,
+  .prizegrid,
+  .judges-grid,
+  .solution-fields{grid-template-columns:1fr!important}
+  #criteria .triad{gap:12px!important;margin-top:18px!important}
+  #criteria .triad .item,
+  .prizecard,
+  .judge-card,
+  .bullet-card{
+    min-height:auto!important;
+    padding:18px!important;
+    border-radius:18px!important;
+  }
+  #criteria .triad .item h3{margin:44px 0 8px!important;font-size:17px!important;min-height:0!important}
+
+  .season1-head{max-width:100%!important}
+  .season1-video-shell{
+    margin-top:16px!important;
+    border-radius:18px!important;
+    overflow:hidden;
+  }
+  .season1-video{aspect-ratio:16/10;height:auto!important}
+  .season1-video-copy{padding:14px 16px!important;font-size:12px!important}
+
+  .register-shell{grid-template-columns:1fr!important;gap:18px!important}
+  .register-copy{order:1}
+  .register-panel{
+    order:2;
+    padding:18px!important;
+    border-radius:22px!important;
+    min-height:auto!important;
+  }
+  .register-copy .chapter{padding-right:0!important}
+  .register-copy ul li,
+  .register-copy p{font-size:14px!important;line-height:1.65!important}
+  .form-progress{gap:8px!important}
+  .form-progress span{height:4px!important}
+  .form-step h3{font-size:18px!important;line-height:1.2!important}
+  .form-step p{font-size:13px!important;line-height:1.6!important}
+  .register-panel input,
+  .register-panel select,
+  .register-panel textarea,
+  .mode-toggle button,
+  .commitment{font-size:14px!important}
+  .register-panel input,
+  .register-panel select,
+  .register-panel textarea{min-height:52px!important}
+  .register-panel textarea{min-height:132px!important}
+  .form-actions{flex-direction:column-reverse;align-items:stretch!important;gap:12px!important}
+  .form-btn{width:100%;min-height:50px!important;justify-content:center}
+  .mode-toggle{grid-template-columns:1fr!important;gap:10px!important}
+  .commitment{padding:14px!important;border-radius:16px!important}
+  .form-msg{font-size:13px!important;line-height:1.6!important}
+
+  .registration-success{padding-top:8px!important}
+  .registration-success h3{font-size:clamp(28px,9vw,40px)!important}
+  .success-summary{border-radius:16px!important}
+  .success-row{padding:13px 14px!important}
+
+  .scene-visual-stage{
+    width:72vw!important;
+    max-width:360px!important;
+    right:-16vw!important;
+    top:12.5vh!important;
+    opacity:.74!important;
+    filter:none!important;
+  }
+  .scene-visual{
+    filter:drop-shadow(0 20px 52px rgba(0,0,0,.32)) drop-shadow(0 0 20px rgba(48,147,255,.08)) drop-shadow(0 0 18px rgba(255,127,50,.08))!important;
+  }
+}
+
+@media (max-width: 560px){
+  .topbar{padding:10px 12px 12px!important}
+  .brand-logo{height:25px;max-width:154px}
+  .register-mini{font-size:11px;padding:0 12px}
+  .scene{padding-left:14px!important;padding-right:14px!important}
+  .story > .scene, .hero{padding-top:88px;padding-bottom:28px}
+  .hero h1,
+  .context-main h2,
+  .season1-head h2,
+  #criteria h2,
+  #prize h2,
+  #judges h2{font-size:clamp(32px,11.5vw,46px)!important}
+  .hero-copy{font-size:14px!important}
+  .scene-visual-stage{width:78vw!important;right:-21vw!important;top:13.5vh!important;opacity:.68!important}
+  .season1-video{aspect-ratio:16/11}
+  .register-panel{padding:16px!important}
+  .success-icon{width:64px;height:64px}
+  .success-icon span{font-size:30px}
+}
+
+@media (max-width: 390px){
+  .topnav a{padding:8px 10px;font-size:11px}
+  .register-mini{padding:0 10px}
+  .form-step h3{font-size:17px!important}
+}
+
 </style>
 </head>
 <body>
@@ -2909,6 +3252,47 @@ html{
               </div>
             </div>
           </form>
+
+          <div class="registration-success" id="registrationSuccess" hidden aria-live="polite">
+            <div class="success-orbit" aria-hidden="true"></div>
+
+            <div class="success-icon" aria-hidden="true">
+              <span>✓</span>
+            </div>
+
+            <div class="success-kicker">YES, AI-POWERED ME!</div>
+            <h3>Đăng ký thành công!</h3>
+            <p class="success-lead" id="successLead">
+              BTC đã ghi nhận đăng ký tham gia Ahamove AI Showcase 2026 của bạn.
+            </p>
+
+            <div class="success-summary">
+              <div class="success-row">
+                <span>Hình thức tham gia</span>
+                <strong id="successMode">—</strong>
+              </div>
+              <div class="success-row">
+                <span>Use Case</span>
+                <strong id="successUsecase">—</strong>
+              </div>
+              <div class="success-row">
+                <span>Email nhận xác nhận</span>
+                <strong id="successEmail">—</strong>
+              </div>
+              <div class="success-row">
+                <span>AI Showcase dự kiến</span>
+                <strong>25/09/2026</strong>
+              </div>
+            </div>
+
+            <p class="success-note" id="successEmailNote">
+              Thông tin tiếp theo sẽ được BTC cập nhật qua email và Telegram.
+            </p>
+
+            <button type="button" class="form-btn primary success-home" id="successHomeBtn">
+              ↑ Về đầu trang
+            </button>
+          </div>
         </section>
       </div>
     </div>
@@ -3504,13 +3888,48 @@ html{
         localStorage.removeItem('ahamove-ai-showcase-draft');
       }catch(e){}
 
-      msg.className = 'form-msg ok';
-      msg.innerHTML =
-        '<b>Đăng ký thành công.</b><br>' +
-        'Mã đăng ký: <b style="color:var(--orange)">' + (data.registrationId || '') + '</b><br>' +
-        (data.emailSent === false
-          ? 'BTC đã nhận dữ liệu. Email xác nhận có thể đến chậm một chút.'
-          : 'Email xác nhận đã được gửi tới người tham gia.');
+      const successPanel = document.getElementById('registrationSuccess');
+      const registerPanel = form.closest('.register-panel');
+      const successMode = document.getElementById('successMode');
+      const successUsecase = document.getElementById('successUsecase');
+      const successEmail = document.getElementById('successEmail');
+      const successEmailNote = document.getElementById('successEmailNote');
+
+      if (successMode){
+        successMode.textContent = payload.mode === 'doi_nhom' ? 'Đội nhóm' : 'Cá nhân';
+      }
+      if (successUsecase){
+        successUsecase.textContent = payload.usecase_ten || '—';
+      }
+      if (successEmail){
+        successEmail.textContent = payload.email || '—';
+      }
+      if (successEmailNote){
+        successEmailNote.textContent = data.emailSent === false
+          ? 'BTC đã ghi nhận đăng ký. Email xác nhận có thể đến chậm một chút.'
+          : 'Email xác nhận đã được gửi. Thông tin tiếp theo sẽ được BTC cập nhật qua email và Telegram.';
+      }
+
+      msg.className = 'form-msg';
+      msg.innerHTML = '';
+
+      if (registerPanel) registerPanel.classList.add('success-mode');
+      if (successPanel){
+        successPanel.hidden = false;
+        successPanel.classList.add('is-visible');
+
+        if (window.gsap){
+          gsap.fromTo(
+            successPanel,
+            {autoAlpha:0,y:22,scale:.985},
+            {autoAlpha:1,y:0,scale:1,duration:.55,ease:'power3.out'}
+          );
+        }
+
+        setTimeout(()=>{
+          successPanel.scrollIntoView({behavior:'smooth',block:'center'});
+        },80);
+      }
 
       form.reset();
       showStep(0);
@@ -3528,6 +3947,13 @@ html{
       }
     }
   });
+
+  const successHomeBtn = document.getElementById('successHomeBtn');
+  if (successHomeBtn){
+    successHomeBtn.addEventListener('click',()=>{
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
 
   modeToggle();
 })();
@@ -3753,4 +4179,17 @@ window.addEventListener('DOMContentLoaded', () => {
     aiGlobe.style.opacity = '1';
   }
 });
+
+
+// ===== V20 · Mobile viewport height helper =====
+(function(){
+  const setAppVH = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--app-vh', `${vh}px`);
+  };
+  setAppVH();
+  window.addEventListener('resize', setAppVH, { passive:true });
+  window.addEventListener('orientationchange', setAppVH, { passive:true });
+})();
+
 </script>
