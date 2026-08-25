@@ -2835,8 +2835,8 @@ html{
 
 /* Fixed 3D stage uses the SAME right gutter as the form. */
 .scene-visual-stage{
-  right:var(--master-gutter)!important;
-  width:min(42vw,620px)!important;
+  right:var(--master-gutter);
+  width:min(42vw,620px);
 }
 
 /* Header navigation also sits on the same horizontal frame. */
@@ -2852,8 +2852,8 @@ html{
     --master-gutter:24px;
   }
   .scene-visual-stage{
-    right:24px!important;
-    width:min(54vw,520px)!important;
+    right:24px;
+    width:min(54vw,520px);
   }
 
   .context-main:before,
@@ -2881,8 +2881,8 @@ html{
     padding-right:16px!important;
   }
   .scene-visual-stage{
-    right:16px!important;
-    width:min(68vw,330px)!important;
+    right:16px;
+    width:min(68vw,330px);
   }
 
   .context-main:before,
@@ -3476,11 +3476,12 @@ html{
   const judgesVisual = document.getElementById('visualJudges');
   if (!stage || !heroVisual || !prizeVisual || !criteriaVisual || !judgesVisual) return;
 
+  // V28: per-section 3D offsets are now allowed to override CSS geometry.
   const stateMap = {
     hero:{asset:'none',label:'Hero · YES A.I DO',x:0,y:0,scale:.98,rot:-2,align:'right'},
-    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',x:78,y:10,scale:.92,rot:1.5,align:'right'},
+    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',x:112,y:10,scale:.92,rot:1.5,align:'right'},
     season1:{asset:'none',label:'Mùa 1',x:0,y:0,scale:.92,rot:0,align:'right'},
-    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',x:138,y:14,scale:.74,rot:-3.5,align:'left'},
+    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',x:-44,y:14,scale:.78,rot:-3.5,align:'left'},
     prize:{asset:'prize',label:'Giải thưởng · Study Tour China',x:54,y:6,scale:.96,rot:0,align:'right'},
     judges:{asset:'judges',label:'BGK · Ban giám khảo',x:0,y:14,scale:.88,rot:1.2,align:'right'},
     register:{asset:'galaxy',label:'Đăng ký · Galaxy',x:0,y:54,scale:.86,rot:-1.5,align:'right'}
@@ -3524,8 +3525,13 @@ html{
 
     // V25: visual artwork follows the same 1180px master frame as Registration.
     if(s.align==='left'){
-      right=Math.round(window.innerWidth-gutter-W-(s.x||0));
+      // Anchor to the LEFT edge of the same 1180px master frame.
+      // Positive x moves right; negative x moves left.
+      const left=Math.round(gutter+(s.x||0));
+      right=Math.round(window.innerWidth-left-W);
     }else if(s.align==='right'){
+      // Anchor to the RIGHT edge of the master frame.
+      // Positive x moves further right.
       right=Math.round(gutter-(s.x||0));
     }else{
       right=Math.round(baseStageMetrics.right + (B-W)/2 - (s.x||0));
