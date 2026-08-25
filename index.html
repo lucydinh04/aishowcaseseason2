@@ -3255,6 +3255,29 @@ body.is-section-transitioning{
   }
 }
 
+
+/* ===== V33 · Desktop scroll reverse / snap conflict fix ===== */
+@media(min-width:961px){
+  html{
+    scroll-snap-type:none!important;
+    scroll-behavior:auto!important;
+    overscroll-behavior-y:none!important;
+  }
+  .story > .scene,
+  .register-scene{
+    scroll-snap-align:none!important;
+    scroll-snap-stop:normal!important;
+  }
+}
+
+/* Tablet/mobile retain browser-native flow. */
+@media(max-width:960px){
+  html{
+    scroll-snap-type:y proximity!important;
+    scroll-behavior:smooth!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3821,10 +3844,10 @@ body.is-section-transitioning{
   // Only the slot (left/right) and a very small optical nudge may change.
   const stateMap = {
     hero:{asset:'none',label:'Hero · YES A.I DO',slot:'right',size:520,x:0,y:8},
-    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',slot:'right',size:520,x:18,y:8},
+    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',slot:'right',size:520,x:18,y:48},
     season1:{asset:'none',label:'Mùa 1',slot:'right',size:520,x:0,y:8},
-    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',slot:'left',size:520,x:0,y:28},
-    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',slot:'right',size:520,x:18,y:28},
+    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',slot:'left',size:520,x:0,y:56},
+    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',slot:'right',size:520,x:18,y:56},
     judges:{asset:'judges',label:'BGK · Ban giám khảo',slot:'right',size:520,x:0,y:8},
     register:{asset:'galaxy',label:'Đăng ký · Galaxy',slot:'right',size:500,x:0,y:34}
   };
@@ -4158,6 +4181,8 @@ body.is-section-transitioning{
   let wheelAccumulator=0;
   let wheelResetTimer=0;
   let activeSectionIndex=0;
+  let lastWheelDir=0;
+  let wheelIgnoreUntil=0;
 
   function nearestSceneIndex(){
     const y=window.scrollY;
@@ -4291,6 +4316,12 @@ body.is-section-transitioning{
         document.documentElement.classList.remove('section-nav-active');
         sectionNavLocked=false;
         wheelAccumulator=0;
+        lastWheelDir=0;
+
+        // Ignore residual trackpad inertia briefly after settling.
+        // This prevents the browser from immediately initiating the reverse/next section.
+        wheelIgnoreUntil=performance.now()+170;
+
         requestSceneOwnerUpdate();
         if(window.ScrollTrigger) ScrollTrigger.update();
       });
@@ -4333,40 +4364,53 @@ body.is-section-transitioning{
     if(window.innerWidth<=960 || e.ctrlKey || e.metaKey) return;
     if(isEditableTarget(e.target) || innerScrollableCanConsume(e.target,e.deltaY)) return;
 
-    const current=nearestSceneIndex();
+    const now=performance.now();
 
-    if(sceneNeedsNativeScroll(current,e.deltaY)){
+    // Always own desktop wheel input. Native page scrolling is not allowed
+    // outside intentionally scrollable content such as the long Registration scene.
+    if(sceneNeedsNativeScroll(activeSectionIndex,e.deltaY)){
       return;
     }
 
-    if(sectionNavLocked){
-      e.preventDefault();
+    e.preventDefault();
+
+    if(sectionNavLocked || now<wheelIgnoreUntil){
       return;
     }
+
+    const dir=e.deltaY>0 ? 1 : -1;
+
+    // If the user reverses direction, discard momentum accumulated from
+    // the previous direction rather than letting the two gestures mix.
+    if(lastWheelDir && dir!==lastWheelDir){
+      wheelAccumulator=0;
+    }
+    lastWheelDir=dir;
 
     wheelAccumulator+=e.deltaY;
 
     clearTimeout(wheelResetTimer);
     wheelResetTimer=setTimeout(()=>{
       wheelAccumulator=0;
-    },110);
+      lastWheelDir=0;
+    },105);
 
-    // Higher intent threshold avoids accidental trackpad micro-scroll transitions.
-    if(Math.abs(wheelAccumulator)<48){
-      e.preventDefault();
+    if(Math.abs(wheelAccumulator)<54){
       return;
     }
 
-    const dir=wheelAccumulator>0 ? 1 : -1;
-    const next=current+dir;
+    const next=activeSectionIndex+dir;
 
+    // At top/bottom boundaries, keep control instead of letting the browser
+    // drift a few pixels and then visually bounce back.
     if(next<0 || next>=sections.length){
       wheelAccumulator=0;
+      lastWheelDir=0;
       return;
     }
 
-    e.preventDefault();
     wheelAccumulator=0;
+    lastWheelDir=0;
     goToScene(next);
   },{passive:false});
 
@@ -4378,8 +4422,7 @@ body.is-section-transitioning{
     if(e.key==='ArrowUp' || e.key==='PageUp') dir=-1;
     if(!dir) return;
 
-    const current=nearestSceneIndex();
-    const next=current+dir;
+    const next=activeSectionIndex+dir;
     if(next<0 || next>=sections.length) return;
 
     e.preventDefault();
