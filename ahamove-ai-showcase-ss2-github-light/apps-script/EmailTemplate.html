@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body style="margin:0;padding:0;background:#f3f6f9;font-family:Arial,Helvetica,sans-serif;color:#17324d">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
+         style="background:#f3f6f9;padding:28px 12px">
+    <tr>
+      <td align="center">
+
+        <table role="presentation" width="620" cellspacing="0" cellpadding="0" border="0"
+               style="max-width:620px;width:100%;background:#ffffff;border-radius:18px;overflow:hidden">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:#07131f;padding:26px 30px 24px">
+              <img src="cid:ahamoveLogo" alt="Ahamove"
+                   style="display:block;height:42px;width:auto;border:0">
+
+              <div style="margin-top:22px;font-size:12px;font-weight:800;color:#ff7f32;
+                          letter-spacing:.12em;text-transform:uppercase">
+                YES, AI-POWERED ME!
+              </div>
+
+              <div style="margin-top:6px;font-size:29px;line-height:1.15;font-weight:800;color:#ffffff">
+                Xác nhận đăng ký thành công
+              </div>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:30px">
+
+              <p style="margin:0 0 16px;font-size:16px;line-height:1.65">
+                Xin chào <strong><?= data.recipientName ?></strong>,
+              </p>
+
+              <p style="margin:0 0 10px;font-size:15px;line-height:1.7;color:#4e6478">
+                BTC đã ghi nhận đăng ký tham gia
+                <strong>YES, AI-POWERED ME! — Ahamove AI Showcase 2026</strong> của bạn.
+              </p>
+
+              <p style="margin:0 0 22px;font-size:15px;line-height:1.7;color:#4e6478">
+                Cảm ơn bạn đã đăng ký tham gia chương trình. Thông tin chi tiết tiếp theo
+                sẽ được BTC cập nhật qua <strong>email và Telegram</strong>.
+              </p>
+
+              <!-- Registration summary -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
+                     style="border:1px solid #e5ebf0;border-radius:14px;background:#f8fafc">
+                <tr>
+                  <td style="padding:20px">
+
+                    <div style="font-size:12px;color:#8091a1">Hình thức tham gia</div>
+                    <div style="margin-top:3px;font-size:15px;font-weight:700;color:#17324d">
+                      <?= data.mode ?>
+                    </div>
+
+                    <div style="margin-top:16px;font-size:12px;color:#8091a1">Use Case</div>
+                    <div style="margin-top:3px;font-size:15px;font-weight:700;color:#17324d">
+                      <?= data.usecaseName ?>
+                    </div>
+
+                    <div style="margin-top:16px;font-size:12px;color:#8091a1">Thành viên</div>
+                    <div style="margin-top:3px;font-size:14px;line-height:1.6;color:#17324d">
+                      <?= data.participantSummary ?>
+                    </div>
+
+                    <div style="margin-top:16px;font-size:12px;color:#8091a1">AI Showcase dự kiến</div>
+                    <div style="margin-top:3px;font-size:15px;font-weight:700;color:#17324d">
+                      <?= data.showcaseDate ?>
+                    </div>
+
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:22px 0 0;font-size:14px;line-height:1.7;color:#5f7284">
+                Hẹn gặp bạn tại <strong>AI Showcase 2026</strong>! 🚀
+              </p>
+
+              <? if (data.eventSiteUrl) { ?>
+              <div style="margin-top:22px">
+                <a href="<?= data.eventSiteUrl ?>"
+                   style="display:inline-block;background:#ff7f32;color:#111827;text-decoration:none;
+                          font-size:13px;font-weight:800;padding:12px 18px;border-radius:999px">
+                  Xem AI Showcase 2026
+                </a>
+              </div>
+              <? } ?>
+
+              <div style="height:1px;background:#eef2f5;margin:28px 0 18px"></div>
+
+              <div style="font-size:12px;line-height:1.65;color:#8a9baa">
+                <strong style="color:#17324d">YES, AI-POWERED ME!</strong><br>
+                <em>Real Work. Real AI. Real Impact.</em><br>
+                Ahamove AI Showcase 2026
+              </div>
+
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
