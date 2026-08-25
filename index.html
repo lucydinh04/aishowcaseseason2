@@ -3317,6 +3317,125 @@ body.is-section-transitioning{
   }
 }
 
+
+/* ===== V35 · Restore unified animated orbit system ===== */
+
+/* Keep orbit visible as a shared motion layer across all 3D modules. */
+.scene-visual-orbits{
+  z-index:3!important;
+  inset:-4%!important;
+  opacity:.90!important;
+  mix-blend-mode:screen!important;
+  transform-style:preserve-3d;
+  perspective:900px;
+  pointer-events:none;
+  filter:
+    drop-shadow(0 0 8px rgba(72,170,255,.18))
+    drop-shadow(0 0 7px rgba(255,127,50,.12));
+}
+
+/* Artwork remains visually dominant, but the orbit now reads in front. */
+.scene-visual{
+  z-index:2!important;
+}
+
+.scene-visual-orbits .orbit-ring{
+  border-width:1.6px!important;
+  opacity:.95;
+}
+
+.scene-visual-orbits .orbit-ring--1{
+  width:92%!important;
+  height:58%!important;
+  border-color:rgba(93,193,255,.56)!important;
+  box-shadow:
+    0 0 18px rgba(71,172,255,.20),
+    inset 0 0 14px rgba(71,172,255,.10)!important;
+  animation:orbitSpin1 15s linear infinite!important;
+}
+
+.scene-visual-orbits .orbit-ring--2{
+  width:96%!important;
+  height:66%!important;
+  border-color:rgba(255,145,61,.58)!important;
+  box-shadow:
+    0 0 20px rgba(255,127,50,.20),
+    inset 0 0 15px rgba(255,127,50,.10)!important;
+  animation:orbitSpin2 19s linear infinite reverse!important;
+}
+
+.scene-visual-orbits .orbit-ring--3{
+  width:86%!important;
+  height:86%!important;
+  border-color:rgba(123,214,255,.38)!important;
+  box-shadow:
+    0 0 16px rgba(102,200,255,.14),
+    inset 0 0 12px rgba(102,200,255,.07)!important;
+  animation:orbitSpin3 24s linear infinite!important;
+}
+
+/* Moving nodes are the easiest cue that the system is alive. */
+.scene-visual-orbits .orbit-ring::before,
+.scene-visual-orbits .orbit-ring::after{
+  width:11px!important;
+  height:11px!important;
+  opacity:.95;
+}
+
+.scene-visual-orbits .orbit-ring--1::before,
+.scene-visual-orbits .orbit-ring--1::after{
+  box-shadow:
+    0 0 14px rgba(83,185,255,.72),
+    0 0 28px rgba(83,185,255,.30)!important;
+}
+
+.scene-visual-orbits .orbit-ring--2::before,
+.scene-visual-orbits .orbit-ring--2::after{
+  box-shadow:
+    0 0 14px rgba(255,137,50,.76),
+    0 0 28px rgba(255,137,50,.32)!important;
+}
+
+/* Never dim the orbit so much during section handoff that it appears to vanish. */
+.scene-visual-stage.is-transitioning .scene-visual-orbits{
+  opacity:.72!important;
+  transform:scale(1.018)!important;
+}
+
+.scene-visual-stage:not(.is-transitioning) .scene-visual-orbits{
+  opacity:.90!important;
+}
+
+/* The shared handoff uses a brief brightness pulse, not an on/off effect. */
+.scene-visual-stage.is-system-handoff .scene-visual-orbits{
+  opacity:1!important;
+  filter:
+    brightness(1.20)
+    drop-shadow(0 0 10px rgba(76,180,255,.24))
+    drop-shadow(0 0 9px rgba(255,127,50,.18))!important;
+}
+
+/* Orbit and aura move together as one persistent AI system. */
+.scene-visual-aura{
+  opacity:.88!important;
+}
+.scene-visual-stage.is-transitioning .scene-visual-aura{
+  opacity:.68!important;
+}
+
+/* Mobile: keep the effect present but quieter so it doesn't compete with content. */
+@media(max-width:960px){
+  .scene-visual-orbits{
+    opacity:.66!important;
+    inset:-2%!important;
+  }
+  .scene-visual-orbits .orbit-ring::before,
+  .scene-visual-orbits .orbit-ring::after{
+    width:8px!important;
+    height:8px!important;
+  }
+}
+
 </style>
 </head>
 <body>
