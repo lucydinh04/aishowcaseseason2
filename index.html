@@ -2766,6 +2766,158 @@ html{
   will-change:transform,opacity!important;
 }
 
+
+/* ===== V25 · One Master Frame across the whole website =====
+   Registration form is the layout reference:
+   - content frame: 1180px
+   - desktop/tablet/mobile gutters are consistent everywhere
+   - 3D scene artwork is aligned to the same frame, never viewport edges
+*/
+:root{
+  --master-frame:1180px;
+  --master-gutter: max(32px, calc((100vw - var(--master-frame)) / 2));
+}
+
+/* Header, every scene and every inner wrapper share the same left/right grid. */
+.topbar{
+  padding-left:var(--master-gutter)!important;
+  padding-right:var(--master-gutter)!important;
+}
+.scene{
+  padding-left:var(--master-gutter)!important;
+  padding-right:var(--master-gutter)!important;
+}
+.scene-inner,
+.hero .scene-inner,
+.context-scene .scene-inner,
+.season1-scene .scene-inner,
+#criteria .scene-inner,
+#prize .scene-inner,
+#judges .scene-inner,
+.register-scene .scene-inner{
+  width:100%!important;
+  max-width:var(--master-frame)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Registration is the master reference, so it fills exactly the same inner frame. */
+.register-shell{
+  width:100%!important;
+  max-width:var(--master-frame)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Mùa 1 can use the full master width while keeping its own internal composition. */
+.season1-layout{
+  width:100%!important;
+  max-width:var(--master-frame)!important;
+}
+
+/* Keep editorial blocks inside the master frame. */
+.context-editorial{
+  margin-left:0!important;
+}
+#criteria .chapter.right,
+#prize .chapter,
+#judges .chapter.right{
+  position:relative;
+}
+
+/* Prevent decorative dark panels from visually bleeding to the viewport edges. */
+.context-main:before,
+#criteria .chapter.right:before,
+#prize .chapter:before,
+#judges .chapter.right:before{
+  max-width:calc(100% + 48px);
+}
+
+/* Fixed 3D stage uses the SAME right gutter as the form. */
+.scene-visual-stage{
+  right:var(--master-gutter)!important;
+  width:min(42vw,620px)!important;
+}
+
+/* Header navigation also sits on the same horizontal frame. */
+.brand,
+.register-mini,
+.topnav{
+  position:relative;
+}
+
+/* Tablet */
+@media(max-width:960px){
+  :root{
+    --master-gutter:24px;
+  }
+  .scene-visual-stage{
+    right:24px!important;
+    width:min(54vw,520px)!important;
+  }
+
+  .context-main:before,
+  #criteria .chapter.right:before,
+  #prize .chapter:before,
+  #judges .chapter.right:before{
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
+
+/* Mobile */
+@media(max-width:560px){
+  :root{
+    --master-gutter:16px;
+  }
+  .topbar{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+  .scene{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+  .scene-visual-stage{
+    right:16px!important;
+    width:min(68vw,330px)!important;
+  }
+
+  .context-main:before,
+  #criteria .chapter.right:before,
+  #prize .chapter:before,
+  #judges .chapter.right:before{
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+  }
+}
+
+
+/* V25 final layout guard — must stay last */
+@media(min-width:961px){
+  .scene{
+    padding-left:var(--master-gutter)!important;
+    padding-right:var(--master-gutter)!important;
+  }
+}
+@media(min-width:561px) and (max-width:960px){
+  .scene,
+  .topbar{
+    padding-left:24px!important;
+    padding-right:24px!important;
+  }
+}
+@media(max-width:560px){
+  .scene,
+  .topbar{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3331,13 +3483,13 @@ html{
   if (!stage || !heroVisual || !prizeVisual || !criteriaVisual || !judgesVisual) return;
 
   const stateMap = {
-    hero:{asset:'none',label:'Hero · YES A.I DO',x:-40,y:0,scale:.98,rot:-2},
-    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',x:42,y:10,scale:.92,rot:1.5},
-    season1:{asset:'none',label:'Mùa 1',x:0,y:0,scale:.92,rot:0},
-    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',x:-800,y:14,scale:.74,rot:-3.5},
-    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',x:36,y:6,scale:.96,rot:0},
-    judges:{asset:'judges',label:'BGK · Ban giám khảo',x:-20,y:14,scale:.88,rot:1.2},
-    register:{asset:'galaxy',label:'Đăng ký · Galaxy',x:10,y:54,scale:.86,rot:-1.5}
+    hero:{asset:'none',label:'Hero · YES A.I DO',x:0,y:0,scale:.98,rot:-2,align:'right'},
+    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',x:0,y:10,scale:.92,rot:1.5,align:'right'},
+    season1:{asset:'none',label:'Mùa 1',x:0,y:0,scale:.92,rot:0,align:'right'},
+    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',x:0,y:14,scale:.74,rot:-3.5,align:'left'},
+    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',x:0,y:6,scale:.96,rot:0,align:'right'},
+    judges:{asset:'judges',label:'BGK · Ban giám khảo',x:0,y:14,scale:.88,rot:1.2,align:'right'},
+    register:{asset:'galaxy',label:'Đăng ký · Galaxy',x:0,y:54,scale:.86,rot:-1.5,align:'right'}
   };
 
   let currentId='hero';
@@ -3361,17 +3513,30 @@ html{
     };
   }
 
+  function getMasterGutter(){
+    if(window.innerWidth<=560) return 16;
+    if(window.innerWidth<=960) return 24;
+    return Math.max(32,(window.innerWidth-1180)/2);
+  }
+
   function geometryForState(s){
     if(!baseStageMetrics) measureBaseStage();
 
     const B=baseStageMetrics.width;
     const W=Math.max(1,Math.round(B*s.scale));
+    const gutter=getMasterGutter();
 
-    // Preserve the old transformed visual center, but achieve it with
-    // actual layout dimensions instead of transform:scale().
-    const right=Math.round(
-      baseStageMetrics.right + (B-W)/2 - s.x
-    );
+    let right;
+
+    // V25: visual artwork follows the same 1180px master frame as Registration.
+    if(s.align==='left'){
+      right=Math.round(window.innerWidth-gutter-W);
+    }else if(s.align==='right'){
+      right=Math.round(gutter);
+    }else{
+      right=Math.round(baseStageMetrics.right + (B-W)/2 - (s.x||0));
+    }
+
     const top=Math.round(
       baseStageMetrics.top + (B-W)/2 + s.y
     );
