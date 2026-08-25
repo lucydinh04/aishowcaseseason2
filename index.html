@@ -616,7 +616,7 @@ p{color:var(--muted);line-height:1.72}
   display:flex;align-items:center;gap:0;font-weight:900;letter-spacing:-.02em
 }
 .brand-logo{
-  width:178px;height:auto;display:block;object-fit:contain;
+  width:164px;height:auto;display:block;object-fit:contain;
   filter:drop-shadow(0 0 18px rgba(255,127,50,.08))
 }
 .register-mini{
@@ -2342,6 +2342,76 @@ p{color:var(--muted);line-height:1.72}
   opacity:.62!important;
 }
 
+
+/* ===== V17 · Section Snap + Structured Use Case Form ===== */
+html{
+  scroll-behavior:smooth;
+  scroll-snap-type:y mandatory;
+  overscroll-behavior-y:none;
+}
+.story > .scene{
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+}
+.register-scene{
+  scroll-snap-align:start;
+}
+
+.solution-fields{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:7px;
+}
+.solution-field{
+  min-width:0;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 92% 8%,rgba(255,127,50,.055),transparent 34%),
+    rgba(5,15,26,.56);
+}
+.solution-field-head{
+  min-height:42px;
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  margin-bottom:9px;
+}
+.solution-field-head label{
+  color:#dce7f1;
+  font-size:12.5px;
+  line-height:1.45;
+  font-weight:800;
+  cursor:text;
+}
+.solution-number{
+  flex:0 0 auto;
+  min-width:26px;
+  height:22px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,127,50,.30);
+  border-radius:7px;
+  background:rgba(255,127,50,.08);
+  color:var(--orange);
+  font-size:9px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.solution-field textarea{
+  min-height:112px;
+  margin:0;
+  font-size:13px;
+}
+@media(max-width:760px){
+  .solution-fields{grid-template-columns:1fr}
+  .solution-field textarea{min-height:104px}
+}
+
 </style>
 </head>
 <body>
@@ -2380,7 +2450,7 @@ p{color:var(--muted);line-height:1.72}
 <div class="noise"></div>
 
 <header class="topbar">
-  <a href="#" class="brand" aria-label="Ahamove"><img class="brand-logo" src="./ahamove_logo.png" alt="Ahamove"></a>
+  <a href="#" class="brand" aria-label="Ahamove"><img class="brand-logo" src="./ahamove_logo_white.png" alt="Ahamove"></a>
   <nav class="topnav">
     <a href="#impact">Bối cảnh</a>
     <a href="#season1">Mùa 1</a>
@@ -2606,7 +2676,7 @@ p{color:var(--muted);line-height:1.72}
             </p>
             <p style="margin-top:18px;font-size:13px">
               👥 Cá nhân hoặc đội nhóm, tối đa 3 thành viên.<br>
-              🗓️ Form đăng ký mở đến hết ngày <b>21/09/2026</b><br>
+              🗓️ Form đăng ký mở đến hết ngày <b>11/09/2026</b><br>
               🚀 AI Showcase dự kiến tổ chức ngày <b>25/09/2026</b>
             </p>
             <div class="tagline" style="text-align:left">CÙNG ĐƯA NHỮNG SÁNG KIẾN GIÁ TRỊ VÀO THỰC TIỄN</div>
@@ -2618,7 +2688,7 @@ p{color:var(--muted);line-height:1.72}
             <span class="active"></span><span></span><span></span>
           </div>
           <div class="form-hint" style="margin-top:-8px;margin-bottom:20px;color:#c7d5e2">
-            Form mở đến hết <b style="color:var(--orange)">21/09/2026</b> · AI Showcase dự kiến <b>25/09/2026</b>
+            Form mở đến hết <b style="color:var(--orange)">11/09/2026</b> · AI Showcase dự kiến <b>25/09/2026</b>
           </div>
 
           <form id="regForm" novalidate>
@@ -2761,8 +2831,44 @@ p{color:var(--muted);line-height:1.72}
               <label class="form-label">Tên Use Case <span class="req">*</span></label>
               <input class="form-input" type="text" name="usecase_ten" placeholder="VD: Trợ lý AI tự động phân loại ticket CS" required>
 
-              <label class="form-label">Mô tả giải pháp <span class="req">*</span></label>
-              <textarea name="usecase_mota" required placeholder="1) Bài toán bạn/đội đang giải quyết&#10;2) AI đang được dùng như thế nào trong workflow&#10;3) Ai đang sử dụng&#10;4) Before – After / kết quả đo lường"></textarea>
+              <div class="form-label">Mô tả giải pháp <span class="req">*</span></div>
+              <div class="solution-fields">
+                <div class="solution-field">
+                  <div class="solution-field-head">
+                    <span class="solution-number">01</span>
+                    <label for="usecase_problem">Bài toán bạn/đội đang giải quyết</label>
+                  </div>
+                  <textarea id="usecase_problem" name="usecase_problem" required
+                    placeholder="Vấn đề hiện tại là gì? Quy trình/bước nào đang tốn thời gian, chi phí hoặc dễ phát sinh lỗi?"></textarea>
+                </div>
+
+                <div class="solution-field">
+                  <div class="solution-field-head">
+                    <span class="solution-number">02</span>
+                    <label for="usecase_ai_workflow">AI đang được dùng như thế nào trong workflow?</label>
+                  </div>
+                  <textarea id="usecase_ai_workflow" name="usecase_ai_workflow" required
+                    placeholder="AI tham gia ở bước nào? Đầu vào → xử lý → đầu ra của giải pháp diễn ra như thế nào?"></textarea>
+                </div>
+
+                <div class="solution-field">
+                  <div class="solution-field-head">
+                    <span class="solution-number">03</span>
+                    <label for="usecase_users">Ai đang sử dụng?</label>
+                  </div>
+                  <textarea id="usecase_users" name="usecase_users" required
+                    placeholder="Người dùng thực tế là ai: team/phòng ban/khách hàng? Quy mô hoặc tần suất sử dụng nếu có."></textarea>
+                </div>
+
+                <div class="solution-field">
+                  <div class="solution-field-head">
+                    <span class="solution-number">04</span>
+                    <label for="usecase_before_after">Before – After / Kết quả đo lường</label>
+                  </div>
+                  <textarea id="usecase_before_after" name="usecase_before_after" required
+                    placeholder="Trước và sau khi có AI thay đổi ra sao? Có thể đo bằng thời gian, chi phí, lỗi, chất lượng, SLA, CSAT..."></textarea>
+                </div>
+              </div>
 
               <label class="form-label">Resource / Mentor Support từ BTC</label>
               <textarea name="support" placeholder="Nếu có, hãy nêu nhu cầu hỗ trợ..."></textarea>
@@ -3245,15 +3351,11 @@ p{color:var(--muted);line-height:1.72}
     }
   }
 
-  if(window.Lenis && window.gsap && window.ScrollTrigger){
-    const lenis=new Lenis({
-      duration:1.18,
-      smoothWheel:true,
-      easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))
-    });
-    lenis.on('scroll',ScrollTrigger.update);
-    gsap.ticker.add(time=>lenis.raf(time*1000));
-    gsap.ticker.lagSmoothing(0);
+  // V17: Lenis intentionally disabled.
+  // Native CSS scroll-snap owns vertical scrolling so each gesture settles
+  // on a complete section instead of stopping between scenes.
+  if(window.ScrollTrigger){
+    window.addEventListener('scroll',()=>ScrollTrigger.update(),{passive:true});
   }
 
   // Optional lightweight particle canvas. Failure here must never hide the key visuals.

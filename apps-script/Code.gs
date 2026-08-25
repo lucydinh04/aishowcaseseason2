@@ -46,7 +46,11 @@ const REG_HEADERS = [
   'website_url',
   'raw_payload',
   'notes',
-  'review_status'
+  'review_status',
+  'problem_statement',
+  'ai_workflow',
+  'actual_users',
+  'before_after_result'
 ];
 
 const EMAIL_LOG_HEADERS = [
@@ -64,7 +68,7 @@ const EMAIL_LOG_HEADERS = [
 
 const DEFAULT_CONFIG = [
   ['FORM_OPEN', 'TRUE', 'Bật/tắt nhận đăng ký mới', 'YES'],
-  ['FORM_DEADLINE', '2026-09-21 23:59:59', 'Hạn chót theo Asia/Ho_Chi_Minh', 'YES'],
+  ['FORM_DEADLINE', '2026-09-11 23:59:59', 'Hạn chót theo Asia/Ho_Chi_Minh', 'YES'],
   ['SHOWCASE_DATE', '25/09/2026', 'Ngày dự kiến AI Showcase', 'YES'],
   ['ALLOWED_EMAIL_DOMAIN', 'ahamove.com', 'Chỉ nhận email công ty. Để trống nếu không muốn giới hạn.', 'YES'],
   ['REJECT_DUPLICATE', 'TRUE', 'Chặn một email xuất hiện ở nhiều bài đăng ký', 'YES'],
@@ -103,6 +107,55 @@ function setupProduction() {
   console.log(JSON.stringify(result, null, 2));
   return result;
 }
+
+
+/**
+ * V17 migration — run ONCE after updating Code.gs.
+ * Keeps existing registration data intact, appends the 4 tracking columns,
+ * and updates the live registration deadline.
+ */
+function applySeason2FormUpdate() {
+  ensureWorkbook_();
+
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const configSheet = ss.getSheetByName(CONFIG_SHEET);
+  const lastRow = configSheet.getLastRow();
+
+  let deadlineRow = 0;
+  if (lastRow >= 2) {
+    const keys = configSheet.getRange(2, 1, lastRow - 1, 1).getDisplayValues();
+    for (let i = 0; i < keys.length; i++) {
+      if (String(keys[i][0] || '').trim() === 'FORM_DEADLINE') {
+        deadlineRow = i + 2;
+        break;
+      }
+    }
+  }
+
+  if (deadlineRow) {
+    configSheet.getRange(deadlineRow, 2).setValue('2026-09-11 23:59:59');
+  } else {
+    configSheet.appendRow([
+      'FORM_DEADLINE',
+      '2026-09-11 23:59:59',
+      'Hạn chót theo Asia/Ho_Chi_Minh',
+      'YES'
+    ]);
+  }
+
+  SpreadsheetApp.flush();
+
+  const result = {
+    ok: true,
+    deadline: '2026-09-11 23:59:59',
+    registrationColumns: REG_HEADERS.length,
+    message: 'V17 form schema + deadline updated.'
+  };
+
+  console.log(JSON.stringify(result, null, 2));
+  return result;
+}
+
 
 /**
  * Optional: rotate the Vercel <-> Apps Script shared secret.
@@ -265,7 +318,11 @@ function processRegistration_(payload, meta) {
     clean_(meta.websiteUrl || config.EVENT_SITE_URL, 500),
     safeJson_(payload, 45000),
     '',
-    'New'
+    'New',
+    normalized.problemStatement,
+    normalized.aiWorkflow,
+    normalized.actualUsers,
+    normalized.beforeAfterResult
   ];
 
   const rowIndex = Math.max(sheet.getLastRow() + 1, 2);
@@ -320,13 +377,28 @@ function normalizePayload_(p, config) {
   }
 
   const usecaseName = clean_(p.usecase_ten, 300);
-  const usecaseDescription = clean_(p.usecase_mota, 12000);
+  const problemStatement = clean_(p.usecase_problem, 6000);
+  const aiWorkflow = clean_(p.usecase_ai_workflow, 6000);
+  const actualUsers = clean_(p.usecase_users, 6000);
+  const beforeAfterResult = clean_(p.usecase_before_after, 6000);
   const supportRequested = clean_(p.support, 6000);
   const runningStatus = clean_(p.trangthai, 100);
 
-  if (!usecaseName || !usecaseDescription) {
-    return { ok: false, code: 'VALIDATION_ERROR', message: 'Vui lòng điền đầy đủ thông tin Use Case.' };
+  if (!usecaseName || !problemStatement || !aiWorkflow || !actualUsers || !beforeAfterResult) {
+    return {
+      ok: false,
+      code: 'VALIDATION_ERROR',
+      message: 'Vui lòng điền đầy đủ 4 phần mô tả Use Case.'
+    };
   }
+
+  // Keep the legacy summary column so historical exports/reports remain compatible.
+  const usecaseDescription = [
+    '1) Bài toán: ' + problemStatement,
+    '2) AI trong workflow: ' + aiWorkflow,
+    '3) Người dùng thực tế: ' + actualUsers,
+    '4) Before – After / Kết quả: ' + beforeAfterResult
+  ].join('\n');
 
   if (runningStatus !== 'da_chay_2tuan') {
     return {
@@ -363,6 +435,10 @@ function normalizePayload_(p, config) {
     },
     usecaseName: usecaseName,
     usecaseDescription: usecaseDescription,
+    problemStatement: problemStatement,
+    aiWorkflow: aiWorkflow,
+    actualUsers: actualUsers,
+    beforeAfterResult: beforeAfterResult,
     supportRequested: supportRequested,
     runningStatus: runningStatus
   };
@@ -569,6 +645,10 @@ function sendAdminNotification_(ss, registrationId, data, config) {
     'Đại diện: ' + (data.mode === 'Cá nhân' ? data.individual.name : data.team.leadName) + '\n' +
     'Email: ' + data.contactEmail + '\n' +
     'Use Case: ' + data.usecaseName + '\n\n' +
+    '1) Bài toán:\n' + data.problemStatement + '\n\n' +
+    '2) AI trong workflow:\n' + data.aiWorkflow + '\n\n' +
+    '3) Người dùng thực tế:\n' + data.actualUsers + '\n\n' +
+    '4) Before – After / Kết quả:\n' + data.beforeAfterResult + '\n\n' +
     'Google Sheet: https://docs.google.com/spreadsheets/d/' + SPREADSHEET_ID + '/edit';
 
   adminEmails.forEach(function(email) {
