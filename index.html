@@ -3095,6 +3095,166 @@ body.is-section-transitioning{
   mix-blend-mode:screen;
 }
 
+
+/* ===== V32 · Context + Season 1 viewport fit ===== */
+
+/* BỐI CẢNH — fit all content into one desktop viewport */
+@media(min-width:961px){
+  .context-scene{
+    min-height:100vh!important;
+    padding-top:92px!important;
+    padding-bottom:38px!important;
+  }
+  .context-scene .scene-inner{
+    display:flex;
+    align-items:center;
+  }
+  .context-editorial,
+  .context-main{
+    width:620px!important;
+    max-width:620px!important;
+  }
+  .context-main{
+    padding:0!important;
+  }
+  .context-main:before{
+    top:-28px!important;
+    height:calc(100% + 56px)!important;
+  }
+
+  .context-title{
+    margin:7px 0 14px!important;
+    max-width:620px!important;
+    font-size:clamp(50px,3.8vw,60px)!important;
+    line-height:.94!important;
+    letter-spacing:-.055em!important;
+  }
+  .context-title-line{
+    display:block;
+    white-space:nowrap;
+  }
+
+  .context-lead{
+    max-width:610px!important;
+    font-size:15px!important;
+    line-height:1.58!important;
+  }
+
+  .context-signals{
+    gap:14px!important;
+    margin-top:16px!important;
+  }
+  .context-signal{
+    padding:13px 14px!important;
+  }
+  .context-signal strong{
+    margin-bottom:5px!important;
+    font-size:27px!important;
+  }
+  .context-signal span{
+    font-size:12px!important;
+    line-height:1.45!important;
+  }
+
+  .context-journey{
+    grid-template-columns:1fr 40px 1fr!important;
+    margin-top:15px!important;
+  }
+  .journey-step{
+    padding:14px 0!important;
+  }
+  .journey-step.active{
+    padding-left:6px!important;
+  }
+  .journey-meta{
+    margin-bottom:5px!important;
+    font-size:9px!important;
+  }
+  .journey-title{
+    margin-bottom:6px!important;
+    font-size:18px!important;
+  }
+  .journey-step p{
+    font-size:11.5px!important;
+    line-height:1.48!important;
+  }
+  .journey-arrow{
+    font-size:20px!important;
+  }
+}
+
+/* MÙA 1 — text + video in the same desktop frame */
+@media(min-width:961px){
+  .season1-scene{
+    min-height:100vh!important;
+    padding-top:94px!important;
+    padding-bottom:40px!important;
+  }
+  .season1-scene .scene-inner{
+    display:flex;
+    align-items:center;
+  }
+  .season1-layout{
+    width:100%!important;
+    max-width:1180px!important;
+    display:grid!important;
+    grid-template-columns:390px minmax(0,1fr)!important;
+    gap:42px!important;
+    align-items:center!important;
+    margin:0 auto!important;
+  }
+  .season1-head{
+    width:100%!important;
+    max-width:390px!important;
+    margin:0!important;
+  }
+  .season1-banner{
+    margin-bottom:12px!important;
+  }
+  .season1-head h2{
+    max-width:390px!important;
+    margin:0 0 14px!important;
+    font-size:clamp(48px,3.6vw,58px)!important;
+    line-height:.94!important;
+  }
+  .season1-head > p{
+    max-width:390px!important;
+    margin-top:0!important;
+    margin-bottom:14px!important;
+    font-size:14px!important;
+    line-height:1.58!important;
+  }
+  .season1-head .season1-leadout{
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+  .season1-video-shell{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    aspect-ratio:16/9!important;
+    border-radius:22px!important;
+  }
+}
+
+/* Tablet/mobile keep the readable vertical flow. */
+@media(max-width:960px){
+  .context-title-line{
+    display:block;
+  }
+  .season1-layout{
+    display:block!important;
+  }
+  .season1-head{
+    max-width:760px!important;
+    margin-bottom:22px!important;
+  }
+  .season1-video-shell{
+    width:100%!important;
+    margin:0 auto!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3178,7 +3338,10 @@ body.is-section-transitioning{
       <div class="context-editorial">
         <div class="context-main">
           <div class="kicker">Bối cảnh · Why now?</div>
-          <h2>Từ AI-Transformation<br>đến AI-Powered.</h2>
+          <h2 class="context-title">
+            <span class="context-title-line">Từ <span class="nowrap">AI-Transformation</span></span>
+            <span class="context-title-line">đến <span class="nowrap">AI-Powered.</span></span>
+          </h2>
           <p class="context-lead">
             Ahamove đang bước vào giai đoạn AI không chỉ dừng ở việc thử nghiệm công cụ,
             mà trở thành một phần trong cách công ty <b>vận hành, ra quyết định và tăng tốc tăng trưởng.</b>
@@ -3186,11 +3349,11 @@ body.is-section-transitioning{
 <div class="context-signals">
             <div class="context-signal">
               <strong>Q2/2026</strong>
-              <span>Ahamove quyết liệt đẩy mạnh AI-Transformation</span>
+              <span>Ahamove quyết liệt đẩy mạnh <span class="nowrap">AI-Transformation</span></span>
             </div>
             <div class="context-signal">
               <strong>300</strong>
-              <span>“chiến binh AI” đang tự chuyển mình với tư duy <span class="nowrap">AI-First</span></span>
+              <span>“chiến binh AI” đang tự chuyển mình với <span class="nowrap">tư duy AI-First</span></span>
             </div>
           </div>
 
@@ -3660,8 +3823,8 @@ body.is-section-transitioning{
     hero:{asset:'none',label:'Hero · YES A.I DO',slot:'right',size:520,x:0,y:8},
     impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',slot:'right',size:520,x:18,y:8},
     season1:{asset:'none',label:'Mùa 1',slot:'right',size:520,x:0,y:8},
-    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',slot:'left',size:520,x:0,y:8},
-    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',slot:'right',size:520,x:18,y:8},
+    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',slot:'left',size:520,x:0,y:28},
+    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',slot:'right',size:520,x:18,y:28},
     judges:{asset:'judges',label:'BGK · Ban giám khảo',slot:'right',size:520,x:0,y:8},
     register:{asset:'galaxy',label:'Đăng ký · Galaxy',slot:'right',size:500,x:0,y:34}
   };
