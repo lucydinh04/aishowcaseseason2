@@ -2918,6 +2918,45 @@ html{
   }
 }
 
+
+/* ===== V29 · BGK-based 3D/content ratio ===== */
+@media(min-width:961px){
+  #criteria .chapter.right{
+    width:650px!important;
+    max-width:650px!important;
+  }
+  #criteria h2,
+  #criteria .triad,
+  #criteria .criteria-rule{
+    max-width:650px!important;
+  }
+
+  /* Context needs a little more copy width than BGK, but the 3D is pushed
+     right so the perceived gap stays comparable to the BGK section. */
+  .context-editorial{
+    max-width:720px!important;
+  }
+  .context-main{
+    width:min(700px,51vw)!important;
+  }
+
+  /* Prize and BGK use the same 650px content-column reference. */
+  #prize .chapter,
+  #judges .chapter.right{
+    max-width:650px!important;
+  }
+}
+
+/* During JS-driven section navigation, disable native snap so the custom
+   eased motion has one owner and cannot fight the browser snap engine. */
+html.section-nav-active{
+  scroll-snap-type:none!important;
+  scroll-behavior:auto!important;
+}
+body.is-section-transitioning{
+  cursor:default;
+}
+
 </style>
 </head>
 <body>
@@ -3479,10 +3518,11 @@ html{
   // V28: per-section 3D offsets are now allowed to override CSS geometry.
   const stateMap = {
     hero:{asset:'none',label:'Hero · YES A.I DO',x:0,y:0,scale:.98,rot:-2,align:'right'},
-    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',x:112,y:10,scale:.92,rot:1.5,align:'right'},
-    season1:{asset:'none',label:'Mùa 1',x:0,y:0,scale:.92,rot:0,align:'right'},
-    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',x:-44,y:14,scale:.78,rot:-3.5,align:'left'},
-    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',x:54,y:6,scale:.96,rot:0,align:'right'},
+    // BGK is the visual reference: scale .88, ~650px content column.
+    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',x:112,y:14,scale:.88,rot:1.5,align:'right'},
+    season1:{asset:'none',label:'Mùa 1',x:0,y:0,scale:.88,rot:0,align:'right'},
+    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',x:-28,y:14,scale:.88,rot:-3.5,align:'left'},
+    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',x:76,y:14,scale:.88,rot:0,align:'right'},
     judges:{asset:'judges',label:'BGK · Ban giám khảo',x:0,y:14,scale:.88,rot:1.2,align:'right'},
     register:{asset:'galaxy',label:'Đăng ký · Galaxy',x:0,y:54,scale:.86,rot:-1.5,align:'right'}
   };
@@ -3553,14 +3593,14 @@ html{
       right:g.right,
       top:g.top,
       opacity:g.opacity,
-      ease:'power2.out',
+      ease:'power3.inOut',
       overwrite:true
     };
 
     if(immediate){
       gsap.set(stage,props);
     }else{
-      props.duration=.34;
+      props.duration=.48;
       gsap.to(stage,props);
     }
   }
@@ -3619,8 +3659,8 @@ html{
 
     gsap.to(el,{
       autoAlpha:0,
-      duration:.12,
-      ease:'power1.out',
+      duration:.18,
+      ease:'power2.inOut',
       overwrite:true,
       onComplete:()=>{
         el.classList.add('visual-js-hidden');
@@ -3639,8 +3679,8 @@ html{
       {autoAlpha:0},
       {
         autoAlpha:1,
-        duration:.20,
-        ease:'power2.out',
+        duration:.32,
+        ease:'power3.out',
         overwrite:true
       }
     );
@@ -3686,7 +3726,7 @@ html{
 
     stage.classList.add('is-transitioning');
     clearTimeout(transitionTimer);
-    transitionTimer=setTimeout(()=>stage.classList.remove('is-transitioning'),340);
+    transitionTimer=setTimeout(()=>stage.classList.remove('is-transitioning'),520);
 
     stage.dataset.active=s.asset;
 
@@ -3727,6 +3767,7 @@ html{
   let sceneRaf=0;
   function updateSceneOwner(){
     sceneRaf=0;
+    if(document.body.classList.contains('is-section-transitioning')) return;
     const owner=getSectionAtViewportCenter();
     if(!owner) return;
 
@@ -3749,6 +3790,169 @@ html{
 
   // Initial owner sync.
   requestSceneOwnerUpdate();
+
+  // ===== V29 · decisive one-wheel / one-section navigation =====
+  // Reference motion: one clear section per gesture, ~700ms eased travel,
+  // fixed 3D handoff occurring naturally when viewport center crosses sections.
+  let sectionNavAnimating=false;
+  let wheelAccumulator=0;
+  let wheelResetTimer=0;
+  let sectionNavRaf=0;
+
+  function nearestSceneIndex(){
+    const y=window.scrollY;
+    let best=0;
+    let bestDist=Infinity;
+    sections.forEach((sec,i)=>{
+      const d=Math.abs(sec.offsetTop-y);
+      if(d<bestDist){
+        bestDist=d;
+        best=i;
+      }
+    });
+    return best;
+  }
+
+  function isEditableTarget(target){
+    if(!target || !target.closest) return false;
+    return !!target.closest('input, textarea, select, [contenteditable="true"]');
+  }
+
+  function innerScrollableCanConsume(target,deltaY){
+    let el=target instanceof Element ? target : null;
+    while(el && el!==document.body){
+      const style=getComputedStyle(el);
+      const overflowY=style.overflowY;
+      const canScroll=(overflowY==='auto'||overflowY==='scroll') && el.scrollHeight>el.clientHeight+2;
+      if(canScroll){
+        if(deltaY>0 && el.scrollTop+el.clientHeight<el.scrollHeight-2) return true;
+        if(deltaY<0 && el.scrollTop>2) return true;
+      }
+      el=el.parentElement;
+    }
+    return false;
+  }
+
+  function easeSectionTravel(t){
+    // smooth but decisive: quick acceleration, clean settle
+    return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+  }
+
+  function animateToScene(index){
+    index=Math.max(0,Math.min(sections.length-1,index));
+    const target=sections[index];
+    if(!target || sectionNavAnimating) return;
+
+    const startY=window.scrollY;
+    const targetY=Math.round(target.offsetTop);
+    if(Math.abs(targetY-startY)<2){
+      requestSceneOwnerUpdate();
+      return;
+    }
+
+    const distance=targetY-startY;
+    const duration=690;
+    const start=performance.now();
+
+    sectionNavAnimating=true;
+    document.documentElement.classList.add('section-nav-active');
+    document.body.classList.add('is-section-transitioning');
+
+    // Cleanly prepare the target scene's fixed visual before the midpoint.
+    // Scroll-owner updates will still determine exact active progress after settle.
+    const targetId=target.id||'hero';
+
+    cancelAnimationFrame(sectionNavRaf);
+    function frame(now){
+      const raw=Math.min(1,(now-start)/duration);
+      const eased=easeSectionTravel(raw);
+      window.scrollTo(0,startY+distance*eased);
+
+      if(raw>=.34 && raw<.42){
+        setState(targetId);
+      }
+
+      if(raw<1){
+        sectionNavRaf=requestAnimationFrame(frame);
+      }else{
+        window.scrollTo(0,targetY);
+        sectionNavAnimating=false;
+        document.documentElement.classList.remove('section-nav-active');
+        document.body.classList.remove('is-section-transitioning');
+        wheelAccumulator=0;
+        requestSceneOwnerUpdate();
+        if(window.ScrollTrigger) ScrollTrigger.update();
+      }
+    }
+    sectionNavRaf=requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('wheel',e=>{
+    // Keep touch/tablet/mobile native; desktop gets the reference-style one-step motion.
+    if(window.innerWidth<=960 || e.ctrlKey || e.metaKey) return;
+    if(isEditableTarget(e.target) || innerScrollableCanConsume(e.target,e.deltaY)) return;
+
+    if(sectionNavAnimating){
+      e.preventDefault();
+      return;
+    }
+
+    wheelAccumulator+=e.deltaY;
+    clearTimeout(wheelResetTimer);
+    wheelResetTimer=setTimeout(()=>{wheelAccumulator=0},140);
+
+    if(Math.abs(wheelAccumulator)<22){
+      e.preventDefault();
+      return;
+    }
+
+    const dir=wheelAccumulator>0 ? 1 : -1;
+    const current=nearestSceneIndex();
+    const next=current+dir;
+
+    if(next<0 || next>=sections.length){
+      wheelAccumulator=0;
+      return;
+    }
+
+    e.preventDefault();
+    wheelAccumulator=0;
+    animateToScene(next);
+  },{passive:false});
+
+  // Keyboard navigation follows the same section rhythm.
+  window.addEventListener('keydown',e=>{
+    if(window.innerWidth<=960 || isEditableTarget(e.target) || sectionNavAnimating) return;
+
+    let dir=0;
+    if(e.key==='ArrowDown' || e.key==='PageDown') dir=1;
+    if(e.key==='ArrowUp' || e.key==='PageUp') dir=-1;
+    if(!dir) return;
+
+    const current=nearestSceneIndex();
+    const next=current+dir;
+    if(next<0 || next>=sections.length) return;
+
+    e.preventDefault();
+    animateToScene(next);
+  });
+
+  // Anchor navigation uses exactly the same easing instead of browser-dependent smooth scroll.
+  document.addEventListener('click',e=>{
+    if(window.innerWidth<=960) return;
+    const link=e.target.closest('a[href^="#"]');
+    if(!link) return;
+    const id=link.getAttribute('href').slice(1);
+    if(!id) return;
+    const target=document.getElementById(id);
+    if(!target) return;
+    const index=sections.indexOf(target);
+    if(index<0) return;
+
+    e.preventDefault();
+    animateToScene(index);
+    history.replaceState(null,'','#'+id);
+  });
 
   addEventListener('mousemove',e=>{
     mx=e.clientX/innerWidth-.5;
