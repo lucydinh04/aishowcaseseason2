@@ -2755,6 +2755,17 @@ html{
   .form-step h3{font-size:17px!important}
 }
 
+
+/* ===== V24 · Section content clarity fix =====
+   Prevents active content from getting stuck in a blurred/low-opacity
+   transition state when mandatory scroll-snap moves quickly between scenes. */
+.section-transition-target{
+  filter:none!important;
+  backface-visibility:visible!important;
+  -webkit-backface-visibility:visible!important;
+  will-change:transform,opacity!important;
+}
+
 </style>
 </head>
 <body>
@@ -3628,7 +3639,7 @@ html{
       return [...sec.querySelectorAll(selector)];
     }
 
-    function showSectionContent(sec, selector){
+    function showSectionContent(sec, selector, animate=true){
       const targets=getTargets(sec,selector);
       if(!targets.length) return;
 
@@ -3637,38 +3648,46 @@ html{
         gsap.killTweensOf(el);
         gsap.set(el,{
           visibility:'visible',
-          pointerEvents:'auto'
+          pointerEvents:'auto',
+          filter:'none'
         });
-        gsap.to(el,{
-          autoAlpha:1,
-          y:0,
-          filter:'blur(0px)',
-          duration:.58,
-          ease:'power2.out',
-          overwrite:'auto'
-        });
+
+        if(animate){
+          gsap.to(el,{
+            autoAlpha:1,
+            y:0,
+            duration:.34,
+            ease:'power2.out',
+            overwrite:true
+          });
+        }else{
+          gsap.set(el,{
+            autoAlpha:1,
+            y:0
+          });
+        }
       });
 
       contentStates.set(sec.id,'visible');
     }
 
-    function hideSectionContent(sec, selector, direction){
+    // V24: Do not blur/fade content when leaving a section.
+    // With mandatory scroll-snap, enter/leave callbacks can arrive in quick
+    // succession; leaving content visually untouched avoids a stale hidden
+    // state while preserving all 3D scene transitions.
+    function hideSectionContent(sec, selector){
       const targets=getTargets(sec,selector);
-      if(!targets.length) return;
-
       targets.forEach(el=>{
         gsap.killTweensOf(el);
-        gsap.to(el,{
-          autoAlpha:.18,
-          y:direction==='down' ? -24 : 24,
-          filter:'blur(5px)',
-          duration:.34,
-          ease:'power1.out',
-          overwrite:'auto'
+        gsap.set(el,{
+          autoAlpha:1,
+          y:0,
+          filter:'none',
+          visibility:'visible',
+          pointerEvents:'auto'
         });
       });
-
-      contentStates.set(sec.id,'hidden');
+      contentStates.set(sec.id,'visible');
     }
 
     transitionTargets.forEach(([id,selector])=>{
@@ -3678,11 +3697,12 @@ html{
       const targets=getTargets(sec,selector);
       targets.forEach(el=>{
         el.classList.add('section-transition-target');
-        if(id==='hero'){
-          gsap.set(el,{autoAlpha:1,y:0,filter:'blur(0px)'});
-        }else{
-          gsap.set(el,{autoAlpha:.18,y:34,filter:'blur(5px)'});
-        }
+        gsap.set(el,{
+          autoAlpha:1,
+          y:0,
+          filter:'none',
+          visibility:'visible'
+        });
       });
 
       ScrollTrigger.create({
@@ -3690,13 +3710,13 @@ html{
         start:'top 74%',
         end:'bottom 26%',
         invalidateOnRefresh:true,
-        onEnter:()=>showSectionContent(sec,selector),
-        onEnterBack:()=>showSectionContent(sec,selector),
-        onLeave:()=>hideSectionContent(sec,selector,'down'),
-        onLeaveBack:()=>hideSectionContent(sec,selector,'up'),
+        onEnter:()=>showSectionContent(sec,selector,true),
+        onEnterBack:()=>showSectionContent(sec,selector,true),
+        onLeave:()=>hideSectionContent(sec,selector),
+        onLeaveBack:()=>hideSectionContent(sec,selector),
         onRefresh:self=>{
           if(self.isActive){
-            showSectionContent(sec,selector);
+            showSectionContent(sec,selector,false);
           }
         }
       });
@@ -3709,15 +3729,17 @@ html{
         const r=sec.getBoundingClientRect();
         const viewportH=window.innerHeight||document.documentElement.clientHeight;
         const overlap=Math.min(r.bottom,viewportH)-Math.max(r.top,0);
-        if(overlap>Math.min(r.height,viewportH)*.18){
-          showSectionContent(sec,selector);
+        if(overlap>Math.min(r.height,viewportH)*.12){
+          showSectionContent(sec,selector,false);
         }
       });
     };
 
+    window.addEventListener('scroll',restoreVisibleSection,{passive:true});
     window.addEventListener('pageshow',restoreVisibleSection);
     window.addEventListener('focus',restoreVisibleSection);
-    setTimeout(restoreVisibleSection,120);
+    window.addEventListener('resize',restoreVisibleSection,{passive:true});
+    setTimeout(restoreVisibleSection,80);
 
     // Hero video dissolves into the galaxy background instead of cutting abruptly.
     const heroMedia=document.querySelector('.hero-video-layer');
