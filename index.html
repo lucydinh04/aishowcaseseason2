@@ -3017,12 +3017,6 @@ html{
             </div>
           </div>
 
-          <div class="context-assets">
-            <span>AI-Autonomous Coding</span>
-            <span>AI Operations · CS / Pooling / Truck</span>
-            <span>AI-Powered Franchise</span>
-          </div>
-
           <div class="context-journey">
             <div class="journey-step completed">
               <div class="journey-meta">GIAI ĐOẠN 1 · ĐÃ HOÀN THÀNH</div>
@@ -3484,10 +3478,10 @@ html{
 
   const stateMap = {
     hero:{asset:'none',label:'Hero · YES A.I DO',x:0,y:0,scale:.98,rot:-2,align:'right'},
-    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',x:0,y:10,scale:.92,rot:1.5,align:'right'},
+    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',x:28,y:10,scale:.92,rot:1.5,align:'right'},
     season1:{asset:'none',label:'Mùa 1',x:0,y:0,scale:.92,rot:0,align:'right'},
-    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',x:0,y:14,scale:.74,rot:-3.5,align:'left'},
-    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',x:0,y:6,scale:.96,rot:0,align:'right'},
+    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',x:-120,y:14,scale:.74,rot:-3.5,align:'left'},
+    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',x:54,y:6,scale:.96,rot:0,align:'right'},
     judges:{asset:'judges',label:'BGK · Ban giám khảo',x:0,y:14,scale:.88,rot:1.2,align:'right'},
     register:{asset:'galaxy',label:'Đăng ký · Galaxy',x:0,y:54,scale:.86,rot:-1.5,align:'right'}
   };
@@ -3530,9 +3524,9 @@ html{
 
     // V25: visual artwork follows the same 1180px master frame as Registration.
     if(s.align==='left'){
-      right=Math.round(window.innerWidth-gutter-W);
+      right=Math.round(window.innerWidth-gutter-W-(s.x||0));
     }else if(s.align==='right'){
-      right=Math.round(gutter);
+      right=Math.round(gutter-(s.x||0));
     }else{
       right=Math.round(baseStageMetrics.right + (B-W)/2 - (s.x||0));
     }
