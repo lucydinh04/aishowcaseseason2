@@ -3278,6 +3278,45 @@ body.is-section-transitioning{
   }
 }
 
+
+/* ===== V34 · Guaranteed 3D vertical positioning + Season 1 one-line title ===== */
+@media(min-width:961px){
+  /* These overrides intentionally win over inline GSAP top values so the visual
+     balance is deterministic in production. */
+  .scene-visual-stage[data-active="hero"]{
+    top:calc(13.5vh + 82px)!important;
+  }
+  .scene-visual-stage[data-active="criteria"]{
+    top:calc(13.5vh + 92px)!important;
+  }
+  .scene-visual-stage[data-active="prize"]{
+    top:calc(13.5vh + 92px)!important;
+  }
+  .scene-visual-stage[data-active="judges"]{
+    top:calc(13.5vh + 14px)!important;
+  }
+
+  /* Season 1: wider text column + one-line headline while keeping text/video
+     in one viewport. */
+  .season1-layout{
+    grid-template-columns:460px minmax(0,1fr)!important;
+    gap:40px!important;
+  }
+  .season1-head{
+    max-width:460px!important;
+  }
+  .season1-head h2{
+    max-width:none!important;
+    white-space:nowrap!important;
+    font-size:46px!important;
+    line-height:.98!important;
+    letter-spacing:-.045em!important;
+  }
+  .season1-head > p{
+    max-width:450px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3844,10 +3883,10 @@ body.is-section-transitioning{
   // Only the slot (left/right) and a very small optical nudge may change.
   const stateMap = {
     hero:{asset:'none',label:'Hero · YES A.I DO',slot:'right',size:520,x:0,y:8},
-    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',slot:'right',size:520,x:18,y:48},
+    impact:{asset:'hero',label:'Bối cảnh · Ahamove AI Ecosystem',slot:'right',size:520,x:18,y:82},
     season1:{asset:'none',label:'Mùa 1',slot:'right',size:520,x:0,y:8},
-    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',slot:'left',size:520,x:0,y:56},
-    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',slot:'right',size:520,x:18,y:56},
+    criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',slot:'left',size:520,x:0,y:92},
+    prize:{asset:'prize',label:'Giải thưởng · Study Tour China',slot:'right',size:520,x:18,y:92},
     judges:{asset:'judges',label:'BGK · Ban giám khảo',slot:'right',size:520,x:0,y:8},
     register:{asset:'galaxy',label:'Đăng ký · Galaxy',slot:'right',size:500,x:0,y:34}
   };
