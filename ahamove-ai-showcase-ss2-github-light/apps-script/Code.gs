@@ -6,7 +6,7 @@
  * Vercel browser -> /api/register -> Apps Script -> Google Sheet + MailApp
  */
 
-const SPREADSHEET_ID = '1kJdRrGM_InkhAGkKs-JIZY-JEI4O7SGfJeOE485A06E';
+const SPREADSHEET_ID = '15sGXELGvwmnTBJXLErU0L6qF8KWDYCt-3A8oPk0eLOM';
 const REG_SHEET = 'Registrations';
 const EMAIL_LOG_SHEET = 'Email Log';
 const CONFIG_SHEET = 'Config';
