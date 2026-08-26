@@ -3437,732 +3437,42 @@ body.is-section-transitioning{
 }
 
 
-
-/* ===== FINAL BACKGROUND BALANCE · Brighter Deep Navy ===== */
-html,body{
-  background:#09192a!important;
+/* ===== Season 1 reference CTA ===== */
+.season1-reference{
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.10);
 }
-
-.bg-art{
-  background-image:
-    linear-gradient(180deg,rgba(3,12,28,.18),rgba(3,12,28,.30)),
-    radial-gradient(circle at 76% 18%,rgba(45,145,255,.18),transparent 36%),
-    radial-gradient(circle at 24% 72%,rgba(255,127,50,.11),transparent 40%),
-    radial-gradient(circle at 50% 50%,rgba(12,47,92,.06),rgba(10,42,82,.13) 48%,rgba(5,20,42,.22) 100%),
-    url("./background_alt.png")!important;
-  filter:brightness(1.28) saturate(1.14) contrast(.99)!important;
+.season1-reference p{
+  margin:0 0 12px!important;
+  color:#aebdcc!important;
+  font-size:12.5px!important;
+  line-height:1.55!important;
 }
-
-.bg-art::after{
-  background:
-    linear-gradient(120deg,rgba(34,107,190,.10),transparent 44%),
-    radial-gradient(circle at 86% 72%,rgba(50,138,240,.11),transparent 30%),
-    radial-gradient(circle at 10% 22%,rgba(255,127,50,.05),transparent 26%)!important;
-  opacity:1!important;
+.season1-reference a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:0 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,127,50,.34);
+  background:rgba(255,127,50,.08);
+  color:#ffd5ba;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.03em;
+  transition:.2s ease;
 }
-
-#webgl{
-  background:
-    radial-gradient(circle at 78% 16%,rgba(65,165,255,.17),transparent 31%),
-    radial-gradient(circle at 22% 68%,rgba(255,127,50,.10),transparent 35%),
-    radial-gradient(circle at 52% 46%,rgba(37,105,185,.09),transparent 43%),
-    linear-gradient(180deg,rgba(8,26,48,.08),rgba(5,18,38,.18))!important;
+.season1-reference a:hover{
+  background:rgba(255,127,50,.14);
+  border-color:rgba(255,127,50,.52);
+  color:#fff;
+  transform:translateY(-1px);
 }
-
-.noise{
-  opacity:.05!important;
-}
-
-.topbar{
-  background:linear-gradient(180deg,rgba(7,20,36,.58),rgba(7,20,36,.10))!important;
-}
-
-/* Reduce the almost-black editorial scrims so the brighter master background
-   remains visible throughout every section. */
-.context-main:before{
-  background:linear-gradient(
-    90deg,
-    rgba(7,20,36,.76) 0%,
-    rgba(7,20,36,.62) 48%,
-    rgba(7,20,36,.30) 74%,
-    rgba(7,20,36,0) 100%
-  )!important;
-}
-
-#criteria .chapter.right:before{
-  background:linear-gradient(
-    270deg,
-    rgba(7,20,36,.76) 0%,
-    rgba(7,20,36,.62) 58%,
-    rgba(7,20,36,.30) 80%,
-    rgba(7,20,36,0) 100%
-  )!important;
-}
-
-#prize .chapter:before,
-#judges .chapter.right:before{
-  background:linear-gradient(
-    90deg,
-    rgba(7,20,36,.76) 0%,
-    rgba(7,20,36,.60) 48%,
-    rgba(7,20,36,.28) 74%,
-    rgba(7,20,36,0) 100%
-  )!important;
-}
-
-/* Keep cards readable without turning them into black blocks. */
-#prize .prize,
-#criteria .triad .item,
-.register-panel{
-  background-color:rgba(8,24,43,.72)!important;
-}
-
 @media(max-width:960px){
-  .context-main:before,
-  #criteria .chapter.right:before,
-  #prize .chapter:before,
-  #judges .chapter.right:before{
-    background:linear-gradient(90deg,rgba(7,20,36,.78),rgba(7,20,36,.52) 72%,rgba(7,20,36,.14))!important;
-  }
-}
-
-
-/* ===== External communication version ===== */
-@media(min-width:961px){
-  .topbar{
-    justify-content:flex-start!important;
-  }
-  .topnav{
-    margin-left:auto!important;
-  }
-}
-
-
-/* ==================================================================
-   EXTERNAL MOBILE V2 · Mobile-first public landing experience
-   Desktop is intentionally unchanged.
-   ================================================================== */
-
-@media(max-width:960px){
-  /* Native mobile scrolling: no snap fights, no forced section jumps. */
-  html{
-    scroll-snap-type:none!important;
-    scroll-behavior:smooth!important;
-    overscroll-behavior-y:auto!important;
-  }
-  .story > .scene{
-    scroll-snap-align:none!important;
-    scroll-snap-stop:normal!important;
-  }
-
-  body{
-    overflow-x:hidden!important;
-  }
-
-  /* Header: compact two-row layout with swipeable nav. */
-  .topbar{
-    height:auto!important;
-    min-height:0!important;
-    display:flex!important;
-    flex-wrap:wrap!important;
-    align-items:center!important;
-    justify-content:flex-start!important;
-    gap:8px 12px!important;
-    padding:10px 16px 10px!important;
-    background:linear-gradient(180deg,rgba(5,15,27,.94),rgba(5,15,27,.74))!important;
-    border-bottom:1px solid rgba(255,255,255,.075)!important;
-    backdrop-filter:blur(18px)!important;
-  }
-  .brand{
-    flex:0 0 auto!important;
-  }
-  .brand-logo{
-    width:auto!important;
-    height:27px!important;
-    max-width:150px!important;
-  }
-  .topnav{
-    order:2!important;
-    flex:0 0 100%!important;
-    width:100%!important;
-    display:flex!important;
-    gap:8px!important;
-    overflow-x:auto!important;
-    overscroll-behavior-x:contain!important;
-    -webkit-overflow-scrolling:touch!important;
-    scrollbar-width:none!important;
-    padding:2px 0 2px!important;
-    white-space:nowrap!important;
-    margin:0!important;
-  }
-  .topnav::-webkit-scrollbar{display:none!important}
-  .topnav a{
-    flex:0 0 auto!important;
-    min-height:34px!important;
-    display:inline-flex!important;
-    align-items:center!important;
-    padding:0 11px!important;
-    border:1px solid rgba(255,255,255,.08)!important;
-    border-radius:999px!important;
-    background:rgba(255,255,255,.035)!important;
-    color:#c7d4e0!important;
-    font-size:11px!important;
-    font-weight:750!important;
-  }
-
-  /* Global mobile section frame */
-  .scene{
-    min-height:auto!important;
-    padding:110px 16px 48px!important;
-    align-items:flex-start!important;
-  }
-  .scene-inner,
-  .context-scene .scene-inner,
-  .season1-scene .scene-inner,
-  #criteria .scene-inner,
-  #prize .scene-inner,
-  #judges .scene-inner{
-    width:100%!important;
-    max-width:100%!important;
-    margin:0!important;
-  }
-
-  /* Hide desktop progress rail. */
-  .progress{display:none!important}
-
-  /* Keep the 3D system as a subtle background accent on phones/tablets. */
-  .scene-visual-stage{
-    width:min(58vw,300px)!important;
-    max-width:300px!important;
-    right:-13vw!important;
-    top:16vh!important;
-    opacity:.36!important;
-    z-index:2!important;
-  }
-  .scene-visual-orbits{
-    opacity:.48!important;
-    inset:-1%!important;
-  }
-  .scene-visual-aura{
-    opacity:.46!important;
-    filter:blur(42px)!important;
-  }
-  .scene-visual-orbits .orbit-ring{
-    border-width:1px!important;
-  }
-  .scene-visual-orbits .orbit-ring::before,
-  .scene-visual-orbits .orbit-ring::after{
-    width:7px!important;
-    height:7px!important;
-  }
-
-  /* Content always wins over decorative 3D. */
-  .scene .scene-inner,
-  .context-editorial,
-  .season1-layout,
-  #criteria .chapter.right,
-  #prize .chapter,
-  #judges .chapter.right{
-    position:relative!important;
-    z-index:4!important;
-  }
-
-  /* Hero */
-  .hero{
-    min-height:100svh!important;
-    padding-top:118px!important;
-    padding-bottom:38px!important;
-    align-items:flex-end!important;
-  }
-  .hero .scene-inner{
-    padding-bottom:0!important;
-  }
-  #hero-bg-video{
-    object-position:68% center!important;
-    opacity:.76!important;
-  }
-  .hero-video-overlay{
-    background:
-      linear-gradient(90deg,rgba(2,8,18,.78),rgba(2,8,18,.36)),
-      linear-gradient(180deg,rgba(2,8,18,.28),rgba(2,8,18,.20) 38%,rgba(2,8,18,.91))!important;
-  }
-  .hero .eyebrow{
-    font-size:9.5px!important;
-    line-height:1.3!important;
-    padding:8px 10px!important;
-    letter-spacing:.08em!important;
-  }
-  .hero h1{
-    margin:14px 0 14px!important;
-    max-width:100%!important;
-    font-size:clamp(54px,17vw,76px)!important;
-    line-height:.83!important;
-    letter-spacing:-.065em!important;
-  }
-  .hero-copy{
-    max-width:94%!important;
-    font-size:14px!important;
-    line-height:1.6!important;
-  }
-  .scrollhint{
-    margin-top:18px!important;
-    font-size:9px!important;
-  }
-
-  /* Bối cảnh */
-  .context-scene{
-    padding-top:112px!important;
-    padding-bottom:48px!important;
-  }
-  .context-editorial,
-  .context-main{
-    width:100%!important;
-    max-width:100%!important;
-  }
-  .context-main{
-    padding:0!important;
-  }
-  .context-main:before{
-    left:-16px!important;
-    right:-16px!important;
-    top:-20px!important;
-    width:auto!important;
-    height:calc(100% + 40px)!important;
-    background:linear-gradient(
-      90deg,
-      rgba(5,18,34,.88),
-      rgba(5,18,34,.70) 72%,
-      rgba(5,18,34,.28)
-    )!important;
-    border-radius:22px!important;
-  }
-  .context-title{
-    margin:8px 0 14px!important;
-    max-width:100%!important;
-    font-size:clamp(39px,11.5vw,54px)!important;
-    line-height:.96!important;
-    letter-spacing:-.05em!important;
-  }
-  .context-title-line{
-    display:block!important;
-    white-space:normal!important;
-  }
-  .context-title .nowrap{
-    white-space:nowrap!important;
-  }
-  .context-lead{
-    max-width:100%!important;
-    font-size:14px!important;
-    line-height:1.6!important;
-  }
-  .context-signals{
-    grid-template-columns:1fr!important;
-    gap:10px!important;
-    margin-top:16px!important;
-  }
-  .context-signal{
-    padding:13px 14px!important;
-    background:rgba(7,21,37,.46)!important;
-    border:1px solid rgba(255,255,255,.07)!important;
-    border-radius:14px!important;
-  }
-  .context-signal strong{
-    font-size:24px!important;
-  }
-  .context-signal span{
-    font-size:12px!important;
-  }
-  .context-journey{
-    grid-template-columns:1fr!important;
-    gap:0!important;
-    margin-top:14px!important;
-    border:none!important;
-  }
-  .journey-step{
-    padding:14px 0!important;
-    border-top:1px solid rgba(255,255,255,.08)!important;
-  }
-  .journey-step.active{
-    padding-left:0!important;
-  }
-  .journey-arrow{
-    height:26px!important;
-    display:flex!important;
-    justify-content:flex-start!important;
-    align-items:center!important;
-    transform:rotate(90deg)!important;
-    transform-origin:left center!important;
-  }
-
-  /* Mùa 1 */
-  .season1-scene{
-    padding-top:112px!important;
-    padding-bottom:48px!important;
-  }
-  .season1-layout{
-    display:block!important;
-    width:100%!important;
-    max-width:100%!important;
-    margin:0!important;
-  }
-  .season1-head{
-    width:100%!important;
-    max-width:100%!important;
-    margin:0 0 18px!important;
-  }
-  .season1-banner{
-    margin-bottom:10px!important;
-  }
-  .season1-head h2{
-    max-width:100%!important;
-    white-space:normal!important;
-    margin:0 0 12px!important;
-    font-size:clamp(38px,11vw,50px)!important;
-    line-height:.96!important;
-  }
-  .season1-head > p{
-    max-width:100%!important;
-    margin:0 0 10px!important;
-    font-size:13.5px!important;
-    line-height:1.58!important;
-  }
-  .season1-video-shell{
-    width:100%!important;
-    max-width:100%!important;
-    margin:0!important;
-    aspect-ratio:16/9!important;
-    border-radius:16px!important;
-    box-shadow:0 20px 56px rgba(0,0,0,.28)!important;
-  }
-  .season1-video{
-    object-fit:contain!important;
-  }
-
-  /* Điều kiện */
-  #criteria{
-    padding-top:112px!important;
-    padding-bottom:48px!important;
-  }
-  #criteria .chapter.right{
-    width:100%!important;
-    max-width:100%!important;
-    margin:0!important;
-    padding:0!important;
-  }
-  #criteria .chapter.right:before{
-    left:-16px!important;
-    right:-16px!important;
-    top:-20px!important;
-    width:auto!important;
-    height:calc(100% + 40px)!important;
-    background:linear-gradient(
-      90deg,
-      rgba(5,18,34,.86),
-      rgba(5,18,34,.66) 75%,
-      rgba(5,18,34,.20)
-    )!important;
-    border-radius:22px!important;
-  }
-  #criteria h2{
-    max-width:100%!important;
-    margin:9px 0 18px!important;
-    font-size:clamp(41px,12vw,56px)!important;
-    line-height:.94!important;
-  }
-  #criteria .triad{
-    grid-template-columns:1fr!important;
-    gap:10px!important;
-    margin-top:0!important;
-  }
-  #criteria .triad .item{
-    min-height:0!important;
-    padding:16px!important;
-    border-radius:16px!important;
-  }
-  #criteria .triad .item h3{
-    margin:32px 0 7px!important;
-    min-height:0!important;
-    font-size:17px!important;
-    line-height:1.08!important;
-  }
-  #criteria .triad .item p{
-    font-size:12.5px!important;
-    line-height:1.52!important;
-  }
-  #criteria .criteria-audience{
-    width:100%!important;
-    margin-top:12px!important;
-    align-items:flex-start!important;
-    flex-direction:column!important;
-    gap:5px!important;
-    border-radius:15px!important;
-  }
-
-  /* Giải thưởng */
-  #prize{
-    padding-top:112px!important;
-    padding-bottom:48px!important;
-  }
-  #prize .chapter{
-    width:100%!important;
-    max-width:100%!important;
-    margin:0!important;
-    padding:0!important;
-  }
-  #prize .chapter:before{
-    left:-16px!important;
-    right:-16px!important;
-    top:-20px!important;
-    width:auto!important;
-    height:calc(100% + 40px)!important;
-    background:linear-gradient(
-      90deg,
-      rgba(5,18,34,.88),
-      rgba(5,18,34,.68) 75%,
-      rgba(5,18,34,.22)
-    )!important;
-    border-radius:22px!important;
-  }
-  #prize h2,
-  #prize .one-line-desktop{
-    max-width:100%!important;
-    white-space:normal!important;
-    margin:8px 0 18px!important;
-    font-size:clamp(38px,11vw,52px)!important;
-    line-height:.95!important;
-  }
-  #prize .prizegrid{
-    width:100%!important;
-    max-width:100%!important;
-    grid-template-columns:1fr!important;
-    gap:10px!important;
-  }
-  #prize .prize{
-    grid-template-columns:74px minmax(0,1fr)!important;
-    gap:12px!important;
-    padding:16px!important;
-    border-radius:16px!important;
-  }
-  #prize .prize h3{
-    font-size:16px!important;
-  }
-  #prize .prize p{
-    font-size:13px!important;
-  }
-  #prize .prize-note{
-    max-width:100%!important;
-    margin-top:14px!important;
-    padding-top:14px!important;
-    font-size:12.5px!important;
-  }
-
-  /* BGK */
-  #judges{
-    padding-top:112px!important;
-    padding-bottom:56px!important;
-  }
-  #judges .chapter.right{
-    width:100%!important;
-    max-width:100%!important;
-    margin:0!important;
-    padding:0!important;
-    transform:none!important;
-  }
-  #judges .chapter.right:before{
-    left:-16px!important;
-    right:-16px!important;
-    top:-22px!important;
-    width:auto!important;
-    height:calc(100% + 44px)!important;
-    background:linear-gradient(
-      90deg,
-      rgba(5,18,34,.90),
-      rgba(5,18,34,.67) 75%,
-      rgba(5,18,34,.18)
-    )!important;
-    border-radius:22px!important;
-  }
-  #judges h2{
-    max-width:100%!important;
-    margin:8px 0 18px!important;
-    font-size:clamp(43px,12.5vw,58px)!important;
-    line-height:.94!important;
-  }
-  #judges p{
-    max-width:100%!important;
-    margin:0!important;
-    font-size:14px!important;
-    line-height:1.62!important;
-  }
-
-  /* Audio button stays reachable without blocking content. */
-  .music-state{
-    left:12px!important;
-    bottom:12px!important;
-    width:32px!important;
-    height:32px!important;
-  }
-  .v2-visual-badge{
-    display:none!important;
-  }
-}
-
-@media(max-width:560px){
-  .topbar{
-    padding-left:14px!important;
-    padding-right:14px!important;
-  }
-  .brand-logo{
-    height:25px!important;
-  }
-  .scene{
-    padding-left:14px!important;
-    padding-right:14px!important;
-  }
-  .scene-visual-stage{
-    width:min(62vw,255px)!important;
-    right:-20vw!important;
-    top:17vh!important;
-    opacity:.28!important;
-  }
-  .hero{
-    padding-top:112px!important;
-  }
-  .hero h1{
-    font-size:clamp(50px,16vw,66px)!important;
-  }
-  #hero-bg-video{
-    object-position:72% center!important;
-  }
-  #prize .prize{
-    grid-template-columns:1fr!important;
-    gap:6px!important;
-  }
-}
-
-@media(max-width:390px){
-  .topnav a{
-    min-height:32px!important;
-    padding:0 9px!important;
-    font-size:10.5px!important;
-  }
-  .hero h1{
-    font-size:49px!important;
-  }
-}
-
-
-/* ==================================================================
-   EXTERNAL MOBILE V3 · Brighter background aligned to Internal
-   This block is intentionally last so it overrides darker legacy scrims.
-   ================================================================== */
-
-/* Global deep-navy base: brighter, but still premium/high-tech. */
-html,body{
-  background:#08182a!important;
-}
-
-.bg-art{
-  background-image:
-    linear-gradient(180deg, rgba(3,12,27,.18), rgba(3,12,27,.30)),
-    radial-gradient(circle at 78% 16%, rgba(55,156,255,.18), transparent 34%),
-    radial-gradient(circle at 22% 74%, rgba(255,127,50,.11), transparent 38%),
-    radial-gradient(circle at 52% 48%, rgba(15,55,102,.08), rgba(8,34,72,.09) 48%, rgba(4,17,38,.18) 100%),
-    url("./background_alt.png")!important;
-  filter:brightness(1.24) saturate(1.14) contrast(.99)!important;
-}
-
-#webgl{
-  background:
-    radial-gradient(circle at 80% 18%,rgba(75,170,255,.18),transparent 31%),
-    radial-gradient(circle at 18% 70%,rgba(255,127,50,.11),transparent 35%),
-    radial-gradient(circle at 52% 45%,rgba(40,108,185,.09),transparent 44%),
-    linear-gradient(180deg,rgba(8,24,46,.08),rgba(5,18,36,.17))!important;
-}
-
-.noise{
-  opacity:.055!important;
-}
-
-/* Desktop scrims: reduce the old almost-black panels so the brighter
-   background is actually visible around content. */
-@media(min-width:961px){
-  .context-main:before{
-    background:linear-gradient(
-      90deg,
-      rgba(7,22,40,.76) 0%,
-      rgba(7,22,40,.62) 50%,
-      rgba(7,22,40,.28) 76%,
-      rgba(7,22,40,0) 100%
-    )!important;
-  }
-
-  #criteria .chapter.right:before{
-    background:linear-gradient(
-      270deg,
-      rgba(7,22,40,.74) 0%,
-      rgba(7,22,40,.58) 58%,
-      rgba(7,22,40,.22) 82%,
-      rgba(7,22,40,0) 100%
-    )!important;
-  }
-
-  #prize .chapter:before,
-  #judges .chapter.right:before{
-    background:linear-gradient(
-      90deg,
-      rgba(7,22,40,.76) 0%,
-      rgba(7,22,40,.60) 48%,
-      rgba(7,22,40,.24) 76%,
-      rgba(7,22,40,0) 100%
-    )!important;
-  }
-}
-
-/* Mobile: this is where the external version was still feeling too dark.
-   Keep a readable backing panel, but use translucent navy rather than black. */
-@media(max-width:960px){
-  .context-main:before,
-  #criteria .chapter.right:before,
-  #prize .chapter:before,
-  #judges .chapter.right:before{
-    background:linear-gradient(
-      135deg,
-      rgba(8,28,50,.72) 0%,
-      rgba(8,28,50,.54) 70%,
-      rgba(8,28,50,.26) 100%
-    )!important;
-    border:1px solid rgba(108,194,255,.055)!important;
-    box-shadow:
-      0 18px 46px rgba(0,0,0,.14),
-      inset 0 0 34px rgba(65,156,255,.025)!important;
-  }
-
-  /* Let the 3D/orbit read a little more clearly against the brighter field. */
-  .scene-visual-stage{
-    opacity:.42!important;
-  }
-  .scene-visual-orbits{
-    opacity:.56!important;
-  }
-  .scene-visual-aura{
-    opacity:.52!important;
-  }
-
-  .hero-video-overlay{
-    background:
-      linear-gradient(90deg,rgba(3,12,27,.66),rgba(3,12,27,.24)),
-      linear-gradient(180deg,rgba(3,12,27,.18),rgba(3,12,27,.10) 38%,rgba(3,12,27,.76))!important;
-  }
-}
-
-@media(max-width:560px){
-  .scene-visual-stage{
-    opacity:.34!important;
-  }
-  .scene-visual-orbits{
-    opacity:.48!important;
-  }
+  .season1-reference{margin-top:14px}
+  .season1-reference p{font-size:13px!important}
 }
 
 </style>
@@ -4211,10 +3521,11 @@ html,body{
     <a href="#prize">Giải thưởng</a>
     <a href="#judges">BGK</a>
   </nav>
+  <a class="register-mini" href="#register">Đăng ký ngay ↗</a>
 </header>
 
 <div class="progress">
-  <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+  <span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span>
 </div>
 
 <main class="story">
@@ -4233,7 +3544,7 @@ html,body{
       <div class="hero-video-overlay"></div>
     </div>
     <div class="scene-inner">
-      <div class="eyebrow"><i></i>Ahamove AI Showcase 2026 · 30/09/2026</div>
+      <div class="eyebrow"><i></i>Ahamove AI Showcase 2026</div>
       <h1>YES,<br><span class="orange">AI‑POWERED</span><br><span class="ghost">ME!</span></h1>
       <p class="hero-copy">
         Tiếp nối hành trình <b>YES A.I DO</b>, AI đang từng bước trở thành một phần thiết thực trong hoạt động vận hành tại Ahamove.
@@ -4297,7 +3608,14 @@ html,body{
           <h2>8 đội thi tiên phong</h2>
           <p>Mùa 1 là nơi những use case AI đầu tiên được mang ra trình diễn như một lời khẳng định rằng AI đã bắt đầu đi vào công việc thật tại Ahamove.</p>
           <p class="season1-leadout">Từ nền tảng đó, Mùa 2 tiếp tục hành trình với trọng tâm rõ ràng hơn: <b>AI phải đi vào thực tế, tạo ra tác động và có khả năng nhân rộng.</b></p>
-</div>
+
+          <div class="season1-reference">
+            <p>Tham khảo hồ sơ Mùa 1 để hình dung rõ hơn về <b>đề tài, flow trình bày, cách triển khai nội dung để chuẩn bị bài thi cho Mùa 2.</b></p>
+            <a href="https://pages.ahamove.com/ai-showcase-ss1-2026-ho-so" target="_blank" rel="noopener noreferrer">
+              Xem hồ sơ Mùa 1 ↗
+            </a>
+          </div>
+        </div>
 
         <div class="season1-video-shell" id="season1VideoShell">
           <video class="season1-video has-source" id="season1Video" controls playsinline preload="metadata" poster="./INTRO_final_poster.jpg">
@@ -4412,7 +3730,302 @@ html,body{
       </div>
     </div>
   </section>
+  <section class="scene register-scene" id="register">
+    <div class="scene-inner">
+      <div class="register-shell">
+        <aside class="register-copy">
+          <div class="chapter">
+<div class="kicker">YES, AI-POWERED ME!</div>
+            <h2>Your work.<br>Your impact.<br><span style="color:var(--orange)">Your AI.</span></h2>
+            <p>
+              Nếu bạn đang sở hữu một giải pháp AI đã được kiểm chứng bằng kết quả thực tế,
+              hãy đăng ký để câu chuyện và tác động của bạn được lan tỏa trên toàn Ahamove.
+            </p>
+            <p style="margin-top:18px;font-size:13px">
+              👥 Cá nhân hoặc đội nhóm, tối đa 3 thành viên.<br>
+              🗓️ Form đăng ký mở đến hết ngày <b>11/09/2026</b><br>
+              🚀 AI Showcase dự kiến tổ chức ngày <b>30/09/2026</b>
+            </p>
+            <div class="tagline" style="text-align:left">CÙNG ĐƯA NHỮNG SÁNG KIẾN GIÁ TRỊ VÀO THỰC TIỄN</div>
+          </div>
+        </aside>
 
+        <section class="register-panel" aria-label="Form đăng ký AI Showcase 2026">
+          <div class="form-progress" aria-hidden="true">
+            <span class="active"></span><span></span><span></span>
+          </div>
+          <div class="form-hint" style="margin-top:-8px;margin-bottom:20px;color:#c7d5e2">
+            Form mở đến hết <b style="color:var(--orange)">11/09/2026</b> · AI Showcase dự kiến <b>30/09/2026</b>
+          </div>
+
+          <form id="regForm" novalidate>
+            <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">
+              <label>Website<input type="text" name="_website" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <div class="form-step active" data-step="0">
+              <h3>01 · Thông tin tham gia</h3>
+              <div class="form-hint">Điền thông tin cá nhân hoặc đội nhóm để BTC liên hệ và gửi xác nhận.</div>
+
+              <label class="form-label">Email nhận xác nhận từ BTC <span class="req">*</span></label>
+              <input class="form-input" type="email" name="email" placeholder="ten.ban@ahamove.com" required>
+
+              <label class="form-label">Hình thức tham gia <span class="req">*</span></label>
+              <div class="form-mode">
+                <label>
+                  <input type="radio" name="mode" value="ca_nhan" required>
+                  <span class="form-choice">👤 Cá nhân</span>
+                </label>
+                <label>
+                  <input type="radio" name="mode" value="doi_nhom">
+                  <span class="form-choice">👥 Đội nhóm 2–3 người</span>
+                </label>
+              </div>
+
+              <div class="form-branch" id="branchIndividual">
+                <label class="form-label">Họ và tên <span class="req">*</span></label>
+                <input class="form-input" type="text" name="cn_hoten" placeholder="Nguyễn Văn A">
+
+                <div class="form-cols">
+                  <div>
+                    <label class="form-label">Phòng ban <span class="req">*</span></label>
+                    <select name="cn_phongban">
+                      <option value="">— Chọn phòng ban —</option>
+                      <option>Central Operations</option>
+                      <option>Supply Operations</option>
+                      <option>Business Development</option>
+                      <option>Application</option>
+                      <option>Platform</option>
+                      <option>HR</option>
+                      <option>FA</option>
+                      <option>AI Franchise</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="form-label">Khu vực <span class="req">*</span></label>
+                    <select name="cn_khuvuc">
+                      <option value="">— Chọn khu vực —</option>
+                      <option value="SGN">SGN — TP.HCM</option>
+                      <option value="HAN">HAN — Hà Nội</option>
+                      <option value="DAD">DAD — Đà Nẵng</option>
+                    </select>
+                  </div>
+                </div>
+
+                <label class="form-label">Telegram <span class="req">*</span></label>
+                <input class="form-input" type="text" name="cn_tele" placeholder="@username">
+              </div>
+
+              <div class="form-branch" id="branchTeam">
+                <label class="form-label">Tên đội <span class="req">*</span></label>
+                <input class="form-input" type="text" name="doi_ten" placeholder="Tên đội của bạn">
+
+                <div class="member-card">
+                  <div class="member-title">Team Lead</div>
+                  <label class="form-label">Họ và tên <span class="req">*</span></label>
+                  <input class="form-input" type="text" name="dd_hoten">
+
+                  <div class="form-cols">
+                    <div>
+                      <label class="form-label">Phòng ban <span class="req">*</span></label>
+                      <select name="dd_phongban">
+                        <option value="">— Chọn phòng ban —</option>
+                        <option>Central Operations</option>
+                        <option>Supply Operations</option>
+                        <option>Business Development</option>
+                        <option>Application</option>
+                        <option>Platform</option>
+                        <option>HR</option>
+                        <option>FA</option>
+                        <option>AI Franchise</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="form-label">Khu vực <span class="req">*</span></label>
+                      <select name="dd_khuvuc">
+                        <option value="">— Chọn khu vực —</option>
+                        <option value="SGN">SGN — TP.HCM</option>
+                        <option value="HAN">HAN — Hà Nội</option>
+                        <option value="DAD">DAD — Đà Nẵng</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <label class="form-label">Telegram <span class="req">*</span></label>
+                  <input class="form-input" type="text" name="dd_tele" placeholder="@username">
+                </div>
+
+                <div class="member-card">
+                  <div class="member-title">Thành viên 2</div>
+                  <div class="form-cols">
+                    <div>
+                      <label class="form-label">Họ và tên</label>
+                      <input class="form-input" type="text" name="tv2_hoten">
+                    </div>
+                    <div>
+                      <label class="form-label">Email</label>
+                      <input class="form-input" type="email" name="tv2_email">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="member-card">
+                  <div class="member-title">Thành viên 3 · nếu có</div>
+                  <div class="form-cols">
+                    <div>
+                      <label class="form-label">Họ và tên</label>
+                      <input class="form-input" type="text" name="tv3_hoten">
+                    </div>
+                    <div>
+                      <label class="form-label">Email</label>
+                      <input class="form-input" type="email" name="tv3_email">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <span></span>
+                <button type="button" class="form-btn primary next">Tiếp tục →</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="1">
+              <h3>02 · Use Case của bạn</h3>
+              <div class="form-hint">Giải pháp đã vận hành tối thiểu 2 tuần, có người dùng thực tế và có kết quả đo lường.</div>
+
+              <input type="hidden" name="trangthai" value="da_chay_2tuan">
+
+              <label class="form-label">Tên Use Case <span class="req">*</span></label>
+              <input class="form-input" type="text" name="usecase_ten" placeholder="VD: Trợ lý AI tự động phân loại ticket CS" required>
+
+              <div class="form-label">Mô tả giải pháp <span class="req">*</span></div>
+              <div class="solution-fields">
+                <div class="solution-field">
+                  <div class="solution-field-head">
+                    <span class="solution-number">01</span>
+                    <label for="usecase_problem">Bài toán bạn/đội đang giải quyết</label>
+                  </div>
+                  <textarea id="usecase_problem" name="usecase_problem" required
+                    placeholder="Vấn đề hiện tại là gì? Quy trình/bước nào đang tốn thời gian, chi phí hoặc dễ phát sinh lỗi?"></textarea>
+                </div>
+
+                <div class="solution-field">
+                  <div class="solution-field-head">
+                    <span class="solution-number">02</span>
+                    <label for="usecase_ai_workflow">AI đang được dùng như thế nào trong workflow?</label>
+                  </div>
+                  <textarea id="usecase_ai_workflow" name="usecase_ai_workflow" required
+                    placeholder="AI tham gia ở bước nào? Đầu vào → xử lý → đầu ra của giải pháp diễn ra như thế nào?"></textarea>
+                </div>
+
+                <div class="solution-field">
+                  <div class="solution-field-head">
+                    <span class="solution-number">03</span>
+                    <label for="usecase_users">Ai đang sử dụng?</label>
+                  </div>
+                  <textarea id="usecase_users" name="usecase_users" required
+                    placeholder="Người dùng thực tế là ai: team/phòng ban/khách hàng? Quy mô hoặc tần suất sử dụng nếu có."></textarea>
+                </div>
+
+                <div class="solution-field">
+                  <div class="solution-field-head">
+                    <span class="solution-number">04</span>
+                    <label for="usecase_before_after">Before – After / Kết quả đo lường</label>
+                  </div>
+                  <textarea id="usecase_before_after" name="usecase_before_after" required
+                    placeholder="Trước và sau khi có AI thay đổi ra sao? Có thể đo bằng thời gian, chi phí, lỗi, chất lượng, SLA, CSAT..."></textarea>
+                </div>
+              </div>
+
+              <label class="form-label">Resource / Mentor Support từ BTC</label>
+              <textarea name="support" placeholder="Nếu có, hãy nêu nhu cầu hỗ trợ..."></textarea>
+
+              <div class="form-actions">
+                <button type="button" class="form-btn prev">← Quay lại</button>
+                <button type="button" class="form-btn primary next">Tiếp tục →</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="2">
+              <h3>03 · Cam kết & Gửi</h3>
+              <div class="form-hint">Xác nhận các cam kết trước khi hoàn tất đăng ký.</div>
+
+              <label class="commitment">
+                <input type="checkbox" name="cam_ket_r4" required>
+                <span>Tôi cam kết giải pháp đăng ký là sản phẩm do bản thân/đội ngũ trực tiếp xây dựng và phát triển, không đơn thuần là sử dụng lại giao diện hoặc sản phẩm có sẵn từ nhà cung cấp bên ngoài.</span>
+              </label>
+
+              <label class="commitment">
+                <input type="checkbox" name="cam_ket_r5" required>
+                <span>Tôi cam kết tuân thủ các nguyên tắc bảo mật dữ liệu của công ty, không chia sẻ thông tin nhạy cảm của khách hàng, đối tác hoặc nhân viên lên các nền tảng AI công khai.</span>
+              </label>
+
+              <label class="commitment">
+                <input type="checkbox" name="cam_ket_1doi" required>
+                <span>Tôi xác nhận các thông tin đăng ký là chính xác và sẵn sàng tham gia AI Showcase 2026 theo lịch BTC công bố.</span>
+              </label>
+
+              <label class="commitment">
+                <input type="checkbox" name="cam_ket_tai_san" required>
+                <span>Tôi đồng ý rằng các use case và giải pháp được phát triển trong chương trình là tài sản của Ahamove, đồng thời Công ty có quyền sử dụng, tiếp tục phát triển và ứng dụng các nội dung này cho các mục đích phù hợp.</span>
+              </label>
+
+              <div class="form-actions">
+                <button type="button" class="form-btn prev">← Quay lại</button>
+                <button type="submit" class="form-btn primary">🚀 ĐĂNG KÝ THAM GIA</button>
+              </div>
+
+              <div class="form-msg" id="formMsg"></div>
+              <div class="form-note">
+                Sau khi gửi thành công, hệ thống sẽ ghi nhận đăng ký và gửi email xác nhận tới người tham gia.
+              </div>
+            </div>
+          </form>
+
+          <div class="registration-success" id="registrationSuccess" hidden aria-live="polite">
+            <div class="success-orbit" aria-hidden="true"></div>
+
+            <div class="success-icon" aria-hidden="true">
+              <span>✓</span>
+            </div>
+
+            <div class="success-kicker">YES, AI-POWERED ME!</div>
+            <h3>Đăng ký thành công!</h3>
+            <p class="success-lead" id="successLead">
+              BTC đã ghi nhận đăng ký tham gia Ahamove AI Showcase 2026 của bạn.
+            </p>
+
+            <div class="success-summary">
+              <div class="success-row">
+                <span>Hình thức tham gia</span>
+                <strong id="successMode">—</strong>
+              </div>
+              <div class="success-row">
+                <span>Use Case</span>
+                <strong id="successUsecase">—</strong>
+              </div>
+              <div class="success-row">
+                <span>Email nhận xác nhận</span>
+                <strong id="successEmail">—</strong>
+              </div>
+              <div class="success-row">
+                <span>AI Showcase dự kiến</span>
+                <strong>30/09/2026</strong>
+              </div>
+            </div>
+
+            <p class="success-note" id="successEmailNote">
+              Thông tin tiếp theo sẽ được BTC cập nhật qua email và Telegram.
+            </p>
+
+            <button type="button" class="form-btn primary success-home" id="successHomeBtn">
+              ↑ Về đầu trang
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
 
 </main>
 
@@ -4439,7 +4052,8 @@ html,body{
     season1:{asset:'none',label:'Mùa 1',slot:'right',size:520,x:0,y:8},
     criteria:{asset:'criteria',label:'Điều kiện · Giải pháp thật. Người dùng thật. Kết quả thật.',slot:'left',size:520,x:0,y:92},
     prize:{asset:'prize',label:'Giải thưởng · Study Tour China',slot:'right',size:520,x:18,y:92},
-    judges:{asset:'judges',label:'BGK · Ban giám khảo',slot:'right',size:520,x:0,y:8}
+    judges:{asset:'judges',label:'BGK · Ban giám khảo',slot:'right',size:520,x:0,y:8},
+    register:{asset:'galaxy',label:'Đăng ký · Galaxy',slot:'right',size:500,x:0,y:34}
   };
 
   let currentId='hero';
@@ -4831,6 +4445,18 @@ html,body{
     const sec=sections[index];
     if(!sec) return false;
 
+    // Registration is intentionally taller than the viewport.
+    // Let users scroll naturally inside it after arriving.
+    if(sec.id==='register'){
+      const top=sec.offsetTop;
+      const bottom=top+sec.offsetHeight;
+      const y=window.scrollY;
+      const vh=window.innerHeight;
+
+      if(deltaY>0 && y+vh<bottom-4) return true;
+      if(deltaY<0 && y>top+4) return true;
+    }
+
     return false;
   }
 
@@ -5071,7 +4697,8 @@ html,body{
       ['season1','.season1-head, .season1-video-shell'],
       ['criteria','.chapter.right'],
       ['prize','.chapter'],
-      ['judges','.chapter.right']
+      ['judges','.chapter.right'],
+      ['register','.register-shell']
     ];
 
     const contentStates = new Map();
@@ -5231,7 +4858,201 @@ html,body{
 })();
 </script>
 
+<script>
+(() => {
+  const SUBMIT_ENDPOINT = "/api/register"; // Dán endpoint Apps Script/API của BTC tại đây.
 
+  const form = document.getElementById('regForm');
+  if (!form) return;
+
+  const steps = [...form.querySelectorAll('.form-step')];
+  const progress = [...document.querySelectorAll('.form-progress span')];
+  let step = 0;
+
+  function showStep(nextStep){
+    step = Math.max(0, Math.min(steps.length - 1, nextStep));
+    steps.forEach((item, index) => item.classList.toggle('active', index === step));
+    progress.forEach((item, index) => item.classList.toggle('active', index <= step));
+  }
+
+  function modeToggle(){
+    const mode = form.querySelector('input[name="mode"]:checked')?.value;
+    const individual = document.getElementById('branchIndividual');
+    const team = document.getElementById('branchTeam');
+
+    individual?.classList.toggle('active', mode === 'ca_nhan');
+    team?.classList.toggle('active', mode === 'doi_nhom');
+
+    ['cn_hoten','cn_phongban','cn_khuvuc','cn_tele'].forEach(name => {
+      const el = form.elements[name];
+      if (el) el.required = mode === 'ca_nhan';
+    });
+
+    ['doi_ten','dd_hoten','dd_phongban','dd_khuvuc','dd_tele','tv2_hoten','tv2_email'].forEach(name => {
+      const el = form.elements[name];
+      if (el) el.required = mode === 'doi_nhom';
+    });
+  }
+
+  form.querySelectorAll('input[name="mode"]').forEach(input => {
+    input.addEventListener('change', modeToggle);
+  });
+
+  function validateTeamMembers(){
+    const mode = form.querySelector('input[name="mode"]:checked')?.value;
+    if (mode !== 'doi_nhom') return true;
+
+    const m2Name = (form.elements.tv2_hoten?.value || '').trim();
+    const m2Email = (form.elements.tv2_email?.value || '').trim();
+    const m3Name = (form.elements.tv3_hoten?.value || '').trim();
+    const m3Email = (form.elements.tv3_email?.value || '').trim();
+
+    if (!m2Name || !m2Email){
+      alert('Đội nhóm cần tối thiểu 2 thành viên. Vui lòng điền đầy đủ Thành viên 2.');
+      return false;
+    }
+
+    if (Boolean(m3Name) !== Boolean(m3Email)){
+      alert('Nếu có Thành viên 3, vui lòng điền đủ Họ tên và Email.');
+      return false;
+    }
+
+    return true;
+  }
+
+  function validateCurrentStep(){
+    if (step === 0 && !validateTeamMembers()) return false;
+    const fields = [...steps[step].querySelectorAll('input,select,textarea')]
+      .filter(el => !el.disabled && el.type !== 'hidden');
+
+    for (const el of fields){
+      if (!el.checkValidity()){
+        el.reportValidity();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  form.querySelectorAll('.next').forEach(button => {
+    button.addEventListener('click', () => {
+      if (validateCurrentStep()) showStep(step + 1);
+    });
+  });
+
+  form.querySelectorAll('.prev').forEach(button => {
+    button.addEventListener('click', () => showStep(step - 1));
+  });
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    if (!validateTeamMembers()) return;
+
+    const msg = document.getElementById('formMsg');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalLabel = submitBtn ? submitBtn.textContent : '';
+
+    const payload = Object.fromEntries(new FormData(form).entries());
+
+    try{
+      if (submitBtn){
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Đang gửi...';
+      }
+
+      msg.className = 'form-msg';
+      msg.innerHTML = 'Đang ghi nhận đăng ký và gửi email xác nhận...';
+
+      const response = await fetch(SUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+
+      let data = {};
+      try{
+        data = await response.json();
+      }catch(e){}
+
+      if (!response.ok || !data.ok){
+        throw new Error(data.message || 'Chưa thể gửi đăng ký.');
+      }
+
+      try{
+        localStorage.removeItem('ahamove-ai-showcase-draft');
+      }catch(e){}
+
+      const successPanel = document.getElementById('registrationSuccess');
+      const registerPanel = form.closest('.register-panel');
+      const successMode = document.getElementById('successMode');
+      const successUsecase = document.getElementById('successUsecase');
+      const successEmail = document.getElementById('successEmail');
+      const successEmailNote = document.getElementById('successEmailNote');
+
+      if (successMode){
+        successMode.textContent = payload.mode === 'doi_nhom' ? 'Đội nhóm' : 'Cá nhân';
+      }
+      if (successUsecase){
+        successUsecase.textContent = payload.usecase_ten || '—';
+      }
+      if (successEmail){
+        successEmail.textContent = payload.email || '—';
+      }
+      if (successEmailNote){
+        successEmailNote.textContent = data.emailSent === false
+          ? 'BTC đã ghi nhận đăng ký. Email xác nhận có thể đến chậm một chút.'
+          : 'Email xác nhận đã được gửi. Thông tin tiếp theo sẽ được BTC cập nhật qua email và Telegram.';
+      }
+
+      msg.className = 'form-msg';
+      msg.innerHTML = '';
+
+      if (registerPanel) registerPanel.classList.add('success-mode');
+      if (successPanel){
+        successPanel.hidden = false;
+        successPanel.classList.add('is-visible');
+
+        if (window.gsap){
+          gsap.fromTo(
+            successPanel,
+            {autoAlpha:0,y:22,scale:.985},
+            {autoAlpha:1,y:0,scale:1,duration:.55,ease:'power3.out'}
+          );
+        }
+
+        setTimeout(()=>{
+          successPanel.scrollIntoView({behavior:'smooth',block:'center'});
+        },80);
+      }
+
+      form.reset();
+      showStep(0);
+      modeToggle();
+
+    }catch(error){
+      msg.className = 'form-msg err';
+      msg.innerHTML =
+        '<b>Chưa thể hoàn tất đăng ký.</b><br>' +
+        (error.message || 'Vui lòng thử lại sau hoặc liên hệ BTC.');
+    }finally{
+      if (submitBtn){
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    }
+  });
+
+  const successHomeBtn = document.getElementById('successHomeBtn');
+  if (successHomeBtn){
+    successHomeBtn.addEventListener('click',()=>{
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
+
+  modeToggle();
+})();
+</script>
 
 
 
